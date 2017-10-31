@@ -1,10 +1,8 @@
 package xyz.javista.core.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -13,10 +11,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String restaurationName;
+    private String restaurantName;
     private String description;
     private LocalDateTime end_datetime;
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+    @OneToMany(mappedBy = "order")
+    private List<OrderLineNumber> orderLineNumberList;
 
     public UUID getId() {
         return id;
@@ -26,12 +28,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getRestaurationName() {
-        return restaurationName;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public void setRestaurationName(String restaurationName) {
-        this.restaurationName = restaurationName;
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public String getDescription() {
@@ -50,11 +52,19 @@ public class Order {
         this.end_datetime = end_datetime;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public List<OrderLineNumber> getOrderLineNumberList() {
+        return orderLineNumberList;
+    }
+
+    public void setOrderLineNumberList(List<OrderLineNumber> orderLineNumberList) {
+        this.orderLineNumberList = orderLineNumberList;
     }
 }

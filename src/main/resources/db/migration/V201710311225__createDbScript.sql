@@ -26,7 +26,7 @@ CREATE TABLE "order" (
   id UUID
     NOT NULL
     PRIMARY KEY,
-  restauration_name VARCHAR(255)
+  restaurant_name VARCHAR(255)
     NOT NULL,
   description VARCHAR(255),
   user_id UUID

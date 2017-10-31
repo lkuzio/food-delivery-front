@@ -12,8 +12,12 @@ public class OrderLineNumber {
     private Double price;
     @Column(name = "paid")
     private Boolean isPaid;
-    private UUID order_id;
-    private UUID user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User purchaser;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public UUID getId() {
         return id;
@@ -39,19 +43,19 @@ public class OrderLineNumber {
         isPaid = paid;
     }
 
-    public UUID getOrder_id() {
-        return order_id;
+    public User getPurchaser() {
+        return purchaser;
     }
 
-    public void setOrder_id(UUID order_id) {
-        this.order_id = order_id;
+    public void setPurchaser(User purchaser) {
+        this.purchaser = purchaser;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

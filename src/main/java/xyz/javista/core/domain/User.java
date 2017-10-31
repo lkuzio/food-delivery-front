@@ -1,9 +1,7 @@
 package xyz.javista.core.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "users")
@@ -16,6 +14,16 @@ public class User {
     private String email;
     private String login;
     private String password;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
+    @OneToMany(mappedBy = "author")
+    private List<Order> createdOrders;
+    @OneToMany(mappedBy = "purchaser")
+    private List<OrderLineNumber> purchasedProducts;
 
     public UUID getId() {
         return id;
@@ -55,5 +63,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Order> getCreatedOrders() {
+        return createdOrders;
+    }
+
+    public void setCreatedOrders(List<Order> createdOrders) {
+        this.createdOrders = createdOrders;
+    }
+
+    public List<OrderLineNumber> getPurchasedProducts() {
+        return purchasedProducts;
+    }
+
+    public void setPurchasedProducts(List<OrderLineNumber> purchasedProducts) {
+        this.purchasedProducts = purchasedProducts;
     }
 }
