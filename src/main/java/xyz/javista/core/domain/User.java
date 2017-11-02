@@ -1,6 +1,9 @@
 package xyz.javista.core.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,9 +13,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @NotNull
+    @Length(min = 1, max = 32, message = "The name must be between 1 and 50 characters")
     private String name;
+    @NotNull
+    @Length(min = 1, max = 255, message = "The email must be between 1 and 255 characters")
     private String email;
+    @NotNull
+    @Length(min = 1, max = 32, message = "The login must be between 1 and 32 characters")
     private String login;
+    @NotNull
+    @Length(min = 1, max = 255, message = "The password must be between 1 and 255 characters")
     private String password;
     @ManyToMany
     @JoinTable(

@@ -1,6 +1,9 @@
 package xyz.javista.core.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -11,9 +14,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @NotNull
+    @Length(min = 1, max = 255, message = "The restaurant name must be between 1 and 255 characters")
     private String restaurantName;
+    @Length(min = 1, max = 255, message = "The description must be between 1 and 255 characters")
     private String description;
+    @NotNull
     private LocalDateTime end_datetime;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
