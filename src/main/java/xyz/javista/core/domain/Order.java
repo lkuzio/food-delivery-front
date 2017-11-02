@@ -23,7 +23,8 @@ public class Order {
     private String description;
 
     @NotNull
-    private LocalDateTime end_datetime;
+    @Column(name = "end_datetime")
+    private LocalDateTime endDatetime;
 
     @NotNull
     @ManyToOne
@@ -57,12 +58,12 @@ public class Order {
         this.description = description;
     }
 
-    public LocalDateTime getEnd_datetime() {
-        return end_datetime;
+    public LocalDateTime getEndDatetime() {
+        return endDatetime;
     }
 
-    public void setEnd_datetime(LocalDateTime end_datetime) {
-        this.end_datetime = end_datetime;
+    public void setEndDatetime(LocalDateTime endDatetime) {
+        this.endDatetime = endDatetime;
     }
 
     public User getAuthor() {
