@@ -14,17 +14,22 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @NotNull
     @Length(min = 1, max = 255, message = "The restaurant name must be between 1 and 255 characters")
     private String restaurantName;
+
     @Length(min = 1, max = 255, message = "The description must be between 1 and 255 characters")
     private String description;
+
     @NotNull
     private LocalDateTime end_datetime;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
+
     @OneToMany(mappedBy = "order")
     private List<OrderLineNumber> orderLineNumberList;
 

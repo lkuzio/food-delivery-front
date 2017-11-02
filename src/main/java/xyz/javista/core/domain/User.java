@@ -13,26 +13,33 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @NotNull
     @Length(min = 1, max = 32, message = "The name must be between 1 and 50 characters")
     private String name;
+
     @NotNull
     @Length(min = 1, max = 255, message = "The email must be between 1 and 255 characters")
     private String email;
+
     @NotNull
     @Length(min = 1, max = 32, message = "The login must be between 1 and 32 characters")
     private String login;
+
     @NotNull
     @Length(min = 1, max = 255, message = "The password must be between 1 and 255 characters")
     private String password;
+
     @ManyToMany
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
+
     @OneToMany(mappedBy = "author")
     private List<Order> createdOrders;
+
     @OneToMany(mappedBy = "purchaser")
     private List<OrderLineNumber> purchasedProducts;
 

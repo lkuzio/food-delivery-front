@@ -10,15 +10,19 @@ public class OrderLineNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @NotNull
     private Double price;
+
     @NotNull
     @Column(name = "paid")
     private Boolean isPaid;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User purchaser;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "order_id")

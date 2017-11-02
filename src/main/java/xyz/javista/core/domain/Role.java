@@ -11,9 +11,11 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private RoleType name;
+
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
