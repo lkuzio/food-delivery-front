@@ -1,11 +1,14 @@
 package xyz.javista.controlleradvice;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import xyz.javista.exception.UserRegistrationException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,5 +33,13 @@ public class CustomControllerAdvice {
         }
         return error;
     }
+
+    @ExceptionHandler(UserRegistrationException.class)
+    @ResponseBody
+    @ResponseStatus(BAD_REQUEST)
+    ErrorDTO handleRegistrationException(UserRegistrationException ex){
+        return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), "User exist");
+    }
+
 
 }

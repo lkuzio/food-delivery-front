@@ -6,4 +6,5 @@ import xyz.javista.core.domain.User;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
+    User findByLogin(String username);
 }

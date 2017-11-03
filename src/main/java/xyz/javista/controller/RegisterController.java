@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.javista.command.RegisterUserCommand;
 import xyz.javista.dto.UserDTO;
+import xyz.javista.exception.UserRegistrationException;
 import xyz.javista.handler.command.RegisterUserCommandHandler;
 import xyz.javista.service.UserService;
 
@@ -20,7 +21,7 @@ public class RegisterController {
     RegisterUserCommandHandler registerUserCommandHandler;
 
     @RequestMapping(method = RequestMethod.POST)
-    public void register(@RequestBody @Valid RegisterUserCommand registerUserCommand){
+    public void register(@RequestBody @Valid RegisterUserCommand registerUserCommand) throws UserRegistrationException {
         registerUserCommandHandler.registerUser(registerUserCommand);
     }
 }
