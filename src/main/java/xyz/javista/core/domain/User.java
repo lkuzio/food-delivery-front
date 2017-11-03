@@ -7,12 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "users")
-public class User implements UserDetails {
+public class User extends AuditBase implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +27,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Length(min = 1, max = 32, message = "The login must be between 1 and 32 characters")
-    @Column(name="login", unique = true)
+    @Column(name = "login", unique = true)
     private String login;
 
     @NotNull
@@ -42,27 +41,13 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "createdby")
     private List<Order> createdOrders;
 
     @OneToMany(mappedBy = "purchaser")
     private List<OrderLineNumber> purchasedProducts;
 
     public User() {
-    }
-
-    public User(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        if (username != null && !"".equals(username) && password != null) {
-            this.login = username;
-            this.password = password;
-            /*this.enabled = enabled;
-            this.accountNonExpired = accountNonExpired;
-            this.credentialsNonExpired = credentialsNonExpired;
-            this.accountNonLocked = accountNonLocked;
-            this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));*/
-        } else {
-            throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
-        }
     }
 
     public UUID getId() {
@@ -158,4 +143,5 @@ public class User implements UserDetails {
     public void setPurchasedProducts(List<OrderLineNumber> purchasedProducts) {
         this.purchasedProducts = purchasedProducts;
     }
+
 }
