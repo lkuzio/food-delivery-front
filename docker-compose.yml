@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  angular_client:
+    build: .
+    ports:
+    - "4200:4200"
+
+
+
+
+
