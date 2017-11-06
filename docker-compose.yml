@@ -1,4 +1,4 @@
-﻿version: "3.3"
+﻿version: "3"
 services:
   angular_client:
     build: .
@@ -7,4 +7,3 @@ services:
       - 49153:49153
     volumes:
       - .:/usr/src/app/
-      - /node_modules

@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --live-reload-port 49153"
+    "start": "npm install && ng serve --host 0.0.0.0 --live-reload-port 49153"
   },
   "private": true,
   "dependencies": {
