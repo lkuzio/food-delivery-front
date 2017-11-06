@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value="registration")
-public class RegisterController {
+public class RegistrationController {
 
     @Autowired
     RegisterUserCommandHandler registerUserCommandHandler;
