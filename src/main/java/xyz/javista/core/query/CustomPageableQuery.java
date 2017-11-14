@@ -1,4 +1,4 @@
-package xyz.javista.query;
+package xyz.javista.core.query;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

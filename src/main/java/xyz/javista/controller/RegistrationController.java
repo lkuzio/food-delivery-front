@@ -9,7 +9,6 @@ import xyz.javista.command.RegisterUserCommand;
 import xyz.javista.dto.UserDTO;
 import xyz.javista.exception.UserRegistrationException;
 import xyz.javista.handler.command.RegisterUserCommandHandler;
-import xyz.javista.service.UserService;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,7 @@ public class RegistrationController {
     RegisterUserCommandHandler registerUserCommandHandler;
 
     @RequestMapping(method = RequestMethod.POST)
-    public void register(@RequestBody @Valid RegisterUserCommand registerUserCommand) throws UserRegistrationException {
-        registerUserCommandHandler.registerUser(registerUserCommand);
+    public UserDTO register(@RequestBody @Valid RegisterUserCommand registerUserCommand) throws UserRegistrationException {
+        return registerUserCommandHandler.registerUser(registerUserCommand);
     }
 }

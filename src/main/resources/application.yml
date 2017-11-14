@@ -8,6 +8,10 @@ spring:
     username: postgres
     password: secret
     driverClassName: org.postgresql.Driver
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
 
 flyway:
   baseline-on-migrate: true

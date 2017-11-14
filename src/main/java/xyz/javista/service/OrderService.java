@@ -5,10 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import xyz.javista.command.CreateOrderCommand;
 import xyz.javista.core.domain.Order;
+import xyz.javista.core.specification.OrderSpecification;
 import xyz.javista.dto.OrderDTO;
 import xyz.javista.mapper.OrderMapper;
-import xyz.javista.query.GetOrderListQuery;
-import xyz.javista.repository.OrderRepository;
+import xyz.javista.core.query.GetOrderListQuery;
+import xyz.javista.core.repository.OrderRepository;
 
 @Service
 public class OrderService {
@@ -21,7 +22,8 @@ public class OrderService {
     OrderMapper orderMapper;
 
     public Page<OrderDTO> getOrders(GetOrderListQuery query) {
-        Page<Order> result = orderRepository.findAll(query);
+        OrderSpecification specification = new OrderSpecification(query);
+        Page<Order> result = orderRepository.findAll(specification,query);
         return result.map(x -> orderMapper.toDto(x));
     }
 

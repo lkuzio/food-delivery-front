@@ -1,4 +1,4 @@
-package xyz.javista.query;
+package xyz.javista.core.query;
 
 
 public class GetUserListQuery extends CustomPageableQuery{

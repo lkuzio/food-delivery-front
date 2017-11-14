@@ -20,6 +20,7 @@ public class CustomControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
+    @ResponseStatus(BAD_REQUEST)
     ValidationErrorDTO handleValidationException(HttpServletRequest request, MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
@@ -27,7 +28,7 @@ public class CustomControllerAdvice {
     }
 
     private ValidationErrorDTO processFieldErrors(List<FieldError> fieldErrors) {
-        ValidationErrorDTO error = new ValidationErrorDTO(BAD_REQUEST.value(), "validation error");
+        ValidationErrorDTO error = new ValidationErrorDTO(BAD_REQUEST.value(), "VALIDATION_ERROR");
         for (org.springframework.validation.FieldError fieldError : fieldErrors) {
             error.addFieldError(fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
         }

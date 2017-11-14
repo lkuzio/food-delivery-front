@@ -18,13 +18,11 @@ public abstract class AuditBase {
     @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdby")
-    @NotNull
     private User createdby;
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "modifiedby")
-    @NotNull
     private User modifiedBy;
 
     @CreatedDate
