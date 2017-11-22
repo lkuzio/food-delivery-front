@@ -24,4 +24,4 @@ endpoints:
 
 security:
   clientid: "asdasdasd"
-  secret: "asdasdasd"
+  clientSecret: "asdasdasd"
