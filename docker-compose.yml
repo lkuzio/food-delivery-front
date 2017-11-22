@@ -1,9 +1,0 @@
-﻿version: "3"
-services:
-  angular_client:
-    build: .
-    ports:
-      - 4200:4200
-      - 49153:49153
-    volumes:
-      - .:/usr/src/app/
