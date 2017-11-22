@@ -1,0 +1,13 @@
+<form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Dish" [(ngModel)]="orderLine.dishName" id="dishName"
+           name="dishName" required>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="number" placeholder="price" [(ngModel)]="orderLine.price" id="price"
+           name="price" required>
+    <span matSuffix>zł</span>
+  </mat-form-field>
+</form>
+
+<button mat-raised-button [disabled]="!createOrderLineForm.form.valid" (click)="onCreateOrderLine()">Order</button>

@@ -1,0 +1,43 @@
+<div *ngIf="order!=null">
+
+  <h2>{{order.restaurantName}}</h2>
+  <p>Order author: <b>{{order.author.name}}</b></p>
+  <p>{{order.description}}</p>
+  <p>Deadline:{{order.endDatetime | amDateFormat:' HH:mm DD-MM-YYYY'}}</p>
+
+  <app-create-order-item *ngIf="isActive(order)" [orderDetailUrl]=orderUrl></app-create-order-item>
+  <h2 *ngIf="!isActive(order)">Time is out</h2>
+
+  <div class="example-container mat-elevation-z8" *ngIf="order.orderLineNumberList.length>0">
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="dishName">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dishName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}}zł</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="purchaser">
+        <mat-header-cell *matHeaderCellDef> Purchaser</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.purchaser.name}} [{{element.purchaser.login}}]</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-raised-button (click)="delete(element)" *ngIf="element.purchaser.id === authService.getUser().id">
+            Delete
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

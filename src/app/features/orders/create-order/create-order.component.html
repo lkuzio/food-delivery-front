@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Create order</h2>
+<mat-dialog-content>
+
+
+  <form class="createOrderForm" (ngSubmit)="onCreateOrder()" #createOrderForm="ngForm" id="createOrderForm">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Restaurant Name" [(ngModel)]="createOrder.restaurantName" id="restaurantName"
+             name="restaurantName">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+
+      <input matInput placeholder="Description" [(ngModel)]="createOrder.description" id="description"
+             name="description">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+
+      <input matInput type="time" placeholder="Ordering time" [(ngModel)]="endDatetime" id="time"
+             name="time">
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button [disabled]="!createOrderForm.form.valid" (click)="onCreateOrder()">Create</button>
+  <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+
+
+</mat-dialog-actions>

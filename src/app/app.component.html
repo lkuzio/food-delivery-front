@@ -1,0 +1,10 @@
+
+<a routerLink="/home"><button mat-button>Home</button></a>
+<a routerLink="/orders" *ngIf="this.authService.isLoggedIn()"><button mat-button>Active Orders</button></a>
+<a routerLink="/login" *ngIf="!this.authService.isLoggedIn()"><button mat-button>Login</button></a>
+<button mat-button *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout</button>
+<a routerLink="/registration" *ngIf="!this.authService.isLoggedIn()"><button mat-button>Sign Up</button></a>
+
+
+<app-alert></app-alert>
+<router-outlet></router-outlet>
