@@ -1,4 +1,4 @@
-package xyz.javista.controlleradvice;
+package xyz.javista.web.controlleradvice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

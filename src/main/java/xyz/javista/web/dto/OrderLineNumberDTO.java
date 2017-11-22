@@ -1,4 +1,4 @@
-package xyz.javista.dto;
+package xyz.javista.web.dto;
 
 import java.util.UUID;
 
@@ -8,7 +8,8 @@ public class OrderLineNumberDTO {
     private Double price;
     private Boolean isPaid;
     private UserDTO purchaser;
-    private OrderDTO order;
+    private UUID orderId;
+    private String dishName;
 
     public UUID getId() {
         return id;
@@ -42,11 +43,19 @@ public class OrderLineNumberDTO {
         this.purchaser = purchaser;
     }
 
-    public OrderDTO getOrder() {
-        return order;
+    public String getDishName() {
+        return dishName;
     }
 
-    public void setOrder(OrderDTO order) {
-        this.order = order;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
+
+    public UUID getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
     }
 }

@@ -2,10 +2,12 @@ package xyz.javista.core.domain;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +36,7 @@ public class User extends AuditBase implements UserDetails {
     @Length(min = 1, max = 255, message = "The password must be between 1 and 255 characters")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -84,7 +86,11 @@ public class User extends AuditBase implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        this.roles.stream().forEach(role ->
+                authorities.add(new SimpleGrantedAuthority(role.getName().name()))
+        );
+        return authorities;
     }
 
     public String getPassword() {

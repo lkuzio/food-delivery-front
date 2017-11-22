@@ -1,4 +1,4 @@
-package xyz.javista.dto;
+package xyz.javista.web.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import xyz.javista.core.domain.User;
-import xyz.javista.dto.UserDTO;
+import xyz.javista.web.dto.UserDTO;
 import xyz.javista.mapper.UserMapper;
 import xyz.javista.core.query.GetUserListQuery;
 import xyz.javista.core.repository.UserRepository;

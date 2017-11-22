@@ -28,6 +28,10 @@ public class OrderLineNumber {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @NotNull
+    @Column(name = "dishname")
+    private String dishName;
+
     public UUID getId() {
         return id;
     }
@@ -66,5 +70,13 @@ public class OrderLineNumber {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getDishName() {
+        return dishName;
+    }
+
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
     }
 }

@@ -1,4 +1,4 @@
-package xyz.javista.controlleradvice;
+package xyz.javista.web.controlleradvice;
 
 import java.util.ArrayList;
 import java.util.List;

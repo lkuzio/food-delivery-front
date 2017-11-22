@@ -1,4 +1,4 @@
-package xyz.javista.command;
+package xyz.javista.web.command;
 
 import org.hibernate.validator.constraints.Length;
 

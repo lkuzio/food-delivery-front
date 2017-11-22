@@ -1,4 +1,4 @@
-package xyz.javista.controlleradvice;
+package xyz.javista.web.controlleradvice;
 
 public class ErrorDTO {
     private final int status;
