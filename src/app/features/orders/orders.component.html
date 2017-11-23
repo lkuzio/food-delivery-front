@@ -1,40 +1,43 @@
-<div>
-  <button mat-raised-button (click)="openDialogCreateOrder()">Create new</button>
-</div>
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="space-between stretch">
+    <mat-card>
+      <button mat-raised-button (click)="openDialogCreateOrder()">Create new</button>
+    </mat-card>
 
-<div *ngIf="orders.length>0">
-  <div class="example-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="restaurantName">
-        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.restaurantName}}</mat-cell>
-      </ng-container>
+    <div *ngIf="orders.length>0" fxFlex="100">
+      <div class="mat-elevation-z12">
+        <mat-table #table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef> description</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="restaurantName" mat>
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.restaurantName}}</mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="endDatetime">
-        <mat-header-cell *matHeaderCellDef> End time</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm DD-MM-YYYY'}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="endDatetime">
+            <mat-header-cell *matHeaderCellDef> End time</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm'}}</mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="author">
-        <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="onSelect(element)"> {{element.author.name}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="author">
+            <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
+            <mat-cell *matCellDef="let element" (click)="onSelect(element)">
+              {{element.author.name}}[{{element.author.login}}]
+            </mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="details">
-        <mat-header-cell *matHeaderCellDef> Details</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a [routerLink]="['/order', element.id]">
-          <button mat-raised-button>More</button></a>
-        </mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="details">
+            <mat-header-cell *matHeaderCellDef> Details</mat-header-cell>
+            <mat-cell *matCellDef="let element"><a [routerLink]="['/order', element.id]">
+              <button mat-button>More</button>
+            </a>
+            </mat-cell>
+          </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
   </div>
 </div>

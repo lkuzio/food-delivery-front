@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
+  MatCardModule,
   MatDialogModule,
   MatInputModule,
   MatMenuModule,
@@ -28,12 +29,13 @@ import {OrdersComponent} from './features/orders/orders.component';
 import {HomeComponent} from './features/home/home.component';
 import {OrderService} from "./features/orders/OrderService";
 import {TokenInterceptor} from "./commons/TokenInterceptor";
-import { CreateOrderComponent } from './features/orders/create-order/create-order.component';
+import {CreateOrderComponent} from './features/orders/create-order/create-order.component';
 import {ErrorInterceptor} from "./commons/ErrorInterceptor";
-import { MomentModule } from 'angular2-moment';
-import { OrderDetailsComponent } from './features/orders/order-details/order-details.component';
-import { CreateOrderItemComponent } from './features/orders/create-order-item/create-order-item.component';
+import {MomentModule} from 'angular2-moment';
+import {OrderDetailsComponent} from './features/orders/order-details/order-details.component';
+import {CreateOrderItemComponent} from './features/orders/create-order-item/create-order-item.component';
 import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
+import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/delete-order-item.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
     HomeComponent,
     CreateOrderComponent,
     OrderDetailsComponent,
-    CreateOrderItemComponent
+    CreateOrderItemComponent,
+    DeleteOrderItemComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
     MatSnackBarModule,
     MatTableModule,
     MatDialogModule,
+    MatCardModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
@@ -92,7 +96,7 @@ import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
       useClass: ErrorInterceptor,
       multi: true
     }],
-  entryComponents:[CreateOrderComponent, CreateOrderItemComponent],
+  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

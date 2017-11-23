@@ -7,6 +7,6 @@ export class OrderLine{
   public isPaid:boolean;
   public purchaser: UserDTO;
   public order: OrderDTO;
-  public dishName: string
+  public dishName: string;
 
 }

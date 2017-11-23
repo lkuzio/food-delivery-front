@@ -1,18 +1,22 @@
-<form class="registerForm" (ngSubmit)="onSubmit()" #registerForm="ngForm" id="registerForm">
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Name" [(ngModel)]="registerUserCommand.name" id="name" name="name">
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Email" [(ngModel)]="registerUserCommand.email" required id="email" name="email">
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Login" [(ngModel)]="registerUserCommand.login" required id="login" name="login">
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <input matInput type="password" placeholder="Password" [(ngModel)]="registerUserCommand.password" id="password"
-           name="password" required>
-  </mat-form-field>
-  <button mat-raised-button [disabled]="!registerForm.form.valid">Sign up!</button>
-</form>
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
+  <mat-card fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+    <form class="registerForm" (ngSubmit)="onSubmit()" #registerForm="ngForm" id="registerForm">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Name" [(ngModel)]="registerUserCommand.name" id="name" name="name">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" [(ngModel)]="registerUserCommand.email" required id="email" name="email">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Login" [(ngModel)]="registerUserCommand.login" required id="login" name="login">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="password" placeholder="Password" [(ngModel)]="registerUserCommand.password" id="password"
+               name="password" required>
+      </mat-form-field>
+      <button mat-raised-button [disabled]="!registerForm.form.valid">Sign up!</button>
+    </form>
+  </mat-card>
+</div>
 
 

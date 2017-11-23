@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.loginService.login(this.loginCommand.login, this.loginCommand.password)
       .subscribe(()=>{
-        this.router.navigateByUrl("");
+        this.router.navigateByUrl("/orders");
       });
   }
 }

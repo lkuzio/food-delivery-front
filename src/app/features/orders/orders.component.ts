@@ -23,7 +23,7 @@ export class OrdersComponent implements OnInit {
   errorMessage: String;
   orders: OrderDTO[];
   dataSource;
-  displayedColumns = ['restaurantName', 'description', 'endDatetime', 'author', 'details'];
+  displayedColumns = ['restaurantName', 'endDatetime', 'author', 'details'];
   selectedOrder: OrderDTO;
 
   constructor(private router: Router, private orderService: OrderService, private alertService: AlertService, public dialog: MatDialog) {

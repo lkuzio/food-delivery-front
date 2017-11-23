@@ -19,7 +19,6 @@ export class CreateOrderItemComponent implements OnInit {
   @Input() orderDetailUrl: string;
   private selectedOrder: OrderDTO;
 
-
   constructor(private orderService: OrderService,
               private authService: AuthService) {
     this.orderLine = new OrderLine();

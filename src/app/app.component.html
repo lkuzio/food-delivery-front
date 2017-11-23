@@ -1,10 +1,31 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch">
 
-<a routerLink="/home"><button mat-button>Home</button></a>
-<a routerLink="/orders" *ngIf="this.authService.isLoggedIn()"><button mat-button>Active Orders</button></a>
-<a routerLink="/login" *ngIf="!this.authService.isLoggedIn()"><button mat-button>Login</button></a>
-<button mat-button *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout</button>
-<a routerLink="/registration" *ngIf="!this.authService.isLoggedIn()"><button mat-button>Sign Up</button></a>
+  <div>
 
+    <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" class="navbar">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start none">
+        <a routerLink="/orders" *ngIf="this.authService.isLoggedIn()">
+          <button mat-button>Active Orders</button>
+        </a>
+        <a routerLink="/login" *ngIf="!this.authService.isLoggedIn()">
+          <button mat-button>Login</button>
+        </a>
+        <a routerLink="/registration" *ngIf="!this.authService.isLoggedIn()">
+          <button mat-button>Sign Up</button>
+        </a>
+      </div>
+      <div *ngIf="this.authService.isLoggedIn()">
+        <button mat-button [matMenuTriggerFor]="menu">{{this.authService.getUser().name}}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout</button>
+        </mat-menu>
+      </div>
+    </mat-card>
+  </div>
 
-<app-alert></app-alert>
-<router-outlet></router-outlet>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  <div>
+  </div>
+</div>
