@@ -8,6 +8,7 @@ import {OrderDetailsComponent} from "./order-details/order-details.component";
 import {CreateOrderComponent} from "./create-order/create-order.component";
 import {CreateOrderItemComponent} from "./create-order-item/create-order-item.component";
 import {OrderService} from "./OrderService";
+import {DeleteOrderItemComponent} from "./delete-order-item/delete-order-item.component";
 
 @NgModule({
   imports:[
@@ -19,7 +20,8 @@ import {OrderService} from "./OrderService";
     OrdersComponent,
     OrderDetailsComponent,
     CreateOrderComponent,
-    CreateOrderItemComponent
+    CreateOrderItemComponent,
+    DeleteOrderItemComponent
   ],
   providers:[
     OrderService
