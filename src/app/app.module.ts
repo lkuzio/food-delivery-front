@@ -43,12 +43,7 @@ import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/dele
     RegistrationComponent,
     LoginComponent,
     AlertComponent,
-    OrdersComponent,
-    HomeComponent,
-    CreateOrderComponent,
-    OrderDetailsComponent,
-    CreateOrderItemComponent,
-    DeleteOrderItemComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
