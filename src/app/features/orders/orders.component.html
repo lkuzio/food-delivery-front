@@ -10,32 +10,32 @@
         <mat-table #table [dataSource]="dataSource">
 
           <ng-container matColumnDef="restaurantName" mat>
-            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.restaurantName}}</mat-cell>
+            <mat-header-cell matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell matCellDef="let element"> {{element.restaurantName}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="endDatetime">
-            <mat-header-cell *matHeaderCellDef> End time</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm'}}</mat-cell>
+            <mat-header-cell matHeaderCellDef> End time</mat-header-cell>
+            <mat-cell matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm'}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="author">
-            <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
-            <mat-cell *matCellDef="let element" (click)="onSelect(element)">
+            <mat-header-cell matHeaderCellDef> Author</mat-header-cell>
+            <mat-cell matCellDef="let element" (click)="onSelect(element)">
               {{element.author.name}}[{{element.author.login}}]
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="details">
-            <mat-header-cell *matHeaderCellDef> Details</mat-header-cell>
-            <mat-cell *matCellDef="let element"><a [routerLink]="['/order', element.id]">
+            <mat-header-cell matHeaderCellDef> Details</mat-header-cell>
+            <mat-cell matCellDef="let element"><a [routerLink]="['/order', element.id]">
               <button mat-button>More</button>
             </a>
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-header-row matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
       </div>
     </div>
