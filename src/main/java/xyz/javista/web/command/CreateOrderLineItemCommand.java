@@ -2,17 +2,15 @@ package xyz.javista.web.command;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class CreateOrderLineItemCommand {
-    @NotNull
-    @DecimalMin("0.01")
+    @NotNull(message = "The dish price cannot be null")
     private Double price;
     private boolean isPaid;
     private UUID purchaserId;
-    @NotNull
+    @NotNull(message = "The dish name cannot be empty")
     @Length(min = 1, max = 255, message = "The dish name must be between 1 and 255 characters")
     private String dishName;
 

@@ -1,5 +1,6 @@
 package xyz.javista.web.command;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -7,11 +8,12 @@ import javax.validation.constraints.NotNull;
 public class RegisterUserCommand {
 
 
-    @Length(min = 1, max = 32, message = "The name must be between 1 and 50 characters")
+    @Length(min = 1, max = 32, message = "The name must be between 1 and 32 characters")
     private String name;
 
     @NotNull
     @Length(min = 1, max = 255, message = "The email must be between 1 and 255 characters")
+    @Email
     private String email;
 
     @NotNull
