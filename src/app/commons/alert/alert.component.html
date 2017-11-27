@@ -1,8 +1,7 @@
-<mat-card *ngIf="message" fxLayout="column" fxLayoutAlign="center center">
-  <div role="alert"
-       [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error', 'alert-warning': message.type === 'info' }">
-
-    {{message.text}}
+<mat-card *ngIf="message" fxLayout="row" fxLayoutAlign="center center" role="alert"
+          [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error', 'alert-warning': message.type === 'info' }">
+  <div>{{message.text}}</div>
+  <div>
     <button mat-button class="close" aria-label="Close" data-dismiss="alert" (click)="message=null">
       <span aria-hidden="true">&times;</span>
     </button>

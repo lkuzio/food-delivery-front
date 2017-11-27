@@ -7,6 +7,7 @@ import {OrderDTO} from "../../dto/OrderDTO";
 import {GenericResponse} from "../../dto/GenericResponse";
 import {OrderLine} from "../../dto/OrderLine";
 import {DataSource} from "@angular/cdk/collections";
+import {ValidationError} from "../../dto/ValidationError";
 
 @Injectable()
 export class OrderService {
@@ -58,7 +59,11 @@ export class OrderService {
     return this.http.post(url, orderLine)
       .pipe(
         catchError(err => {
-            return Observable.throw(err)
+            var error: ValidationError = err.error;
+            var validationMessage = "";
+            error.fieldErrors.forEach(x => validationMessage +=  x.message);
+            this.alertService.error(validationMessage)
+            return Observable.empty();
           }
         ));
   }

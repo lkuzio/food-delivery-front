@@ -20,9 +20,13 @@ export class RegistrationService {
       {headers: {"Content-Type": "application/json"}})
       .pipe(
         catchError(err => {
-            if (err.error.message.equal("VALIDATION_ERROR")) {
-              var errorList: ValidationError = JSON.parse(err);
-              this.alertService.error(errorList.message);
+            debugger;
+            if (err.error.message === "VALIDATION_ERROR") {
+              var error: ValidationError = err.error;
+              var validationMessage = "";
+              error.fieldErrors.forEach(x => validationMessage += x.message);
+              this.alertService.error(validationMessage)
+              return Observable.empty();
             } else {
               this.alertService.error(err.error.message);
             }

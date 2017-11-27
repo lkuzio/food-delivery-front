@@ -3,14 +3,15 @@
     <form class="loginForm" (ngSubmit)="onSubmit()" #loginForm="ngForm" id="loginForm" fxLayout="column"
           fxLayoutAlign="center center">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Login" [(ngModel)]="loginCommand.login" id="login" name="login">
+        <input matInput placeholder="Login" [(ngModel)]="loginCommand.login" id="login" name="login" maxlength="250"
+               required>
       </mat-form-field>
       <mat-form-field class="full-width">
         <input matInput type="password" placeholder="Password" [(ngModel)]="loginCommand.password" id="password"
-               name="password">
+               name="password" maxlength="250" required>
       </mat-form-field>
       <br/>
-      <button mat-raised-button type="submit">Login</button>
+      <button mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
   </mat-card>
 </div>

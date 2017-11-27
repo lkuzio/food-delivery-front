@@ -22,7 +22,7 @@ export class RegistrationComponent {
   onSubmit() {
     this.registrationService.register(this.registerUserCommand).subscribe(() => {
       this.router.navigateByUrl('login')
-      this.alertService.info("User created!");
+      this.alertService.success("User created!");
     });
 
   }

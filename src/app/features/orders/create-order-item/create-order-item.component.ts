@@ -4,6 +4,7 @@ import {OrderService} from "../OrderService";
 import {OrderDTO} from "../../../dto/OrderDTO";
 import {AuthService} from "../../../commons/AuthService";
 import {OrderDetailsComponent} from "../order-details/order-details.component";
+import {AlertService} from "../../../commons/alert/alert.service";
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CreateOrderItemComponent implements OnInit {
   private selectedOrder: OrderDTO;
 
   constructor(private orderService: OrderService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private alertService: AlertService) {
     this.orderLine = new OrderLine();
   }
 
@@ -39,9 +41,6 @@ export class CreateOrderItemComponent implements OnInit {
           this.selectedOrder = orderResp;
           this.orderService.setSelectedOrder(orderResp);
           this.orderLine = new OrderLine();
-        },
-        () => {
-
         }
       );
 
