@@ -36,6 +36,7 @@ import {OrderDetailsComponent} from './features/orders/order-details/order-detai
 import {CreateOrderItemComponent} from './features/orders/create-order-item/create-order-item.component';
 import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
 import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/delete-order-item.component";
+import {OrdersModule} from "./features/orders/orders.module";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/dele
     HttpClientModule,
     MomentModule,
     OrdersRoutingModule,
+    OrdersModule,
     RouterModule.forRoot([
       {
         path: '',

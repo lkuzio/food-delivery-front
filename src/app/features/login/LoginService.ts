@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {tap} from "rxjs/operators";
 import {UserDTO} from "../../dto/UserDTO";
+import {AlertService} from "../../commons/alert/alert.service";
 
 class LoginResponse {
   access_token: string;
@@ -15,7 +16,8 @@ class LoginResponse {
 export class LoginService {
 
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   login(username: string, password: string) {
@@ -30,7 +32,7 @@ export class LoginService {
     });
     const options = {headers: headers};
 
-    return this.http.post('http://localhost:8080/oauth/token', params.toString(), options)
+    return this.http.post('oauth/token', params.toString(), options)
       .pipe(
         tap((response: LoginResponse) => {
             if (response) {
@@ -41,6 +43,9 @@ export class LoginService {
               localStorage.setItem('user_name', response.user.name)
 
             }
+          },
+          e => {
+            this.alertService.error("Invalid username or password");
           }
         )
       )

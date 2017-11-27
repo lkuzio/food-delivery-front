@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AlertService} from "./alert.service";
-import {MatSnackBar, MatSnackBarModule} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-alert',
@@ -19,7 +19,6 @@ export class AlertComponent implements OnInit {
     this.alertService.getMessage()
       .subscribe(message => {
         this.message = message;
-
       });
   }
 

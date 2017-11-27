@@ -20,7 +20,7 @@ export class OrderService {
 
   }
 
-  private URL = "http://localhost:8080/orders";
+  private URL = "orders";
 
   getOrders(beginOfDate: string): Observable<GenericResponse<OrderDTO>> {
     var url = this.URL;
