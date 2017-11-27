@@ -15,23 +15,23 @@
     <mat-table #table [dataSource]="dataSource">
 
       <ng-container matColumnDef="dishName">
-        <mat-header-cell matHeaderCellDef> Name</mat-header-cell>
-        <mat-cell matCellDef="let element"> {{element.dishName}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dishName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <mat-header-cell matHeaderCellDef> Price</mat-header-cell>
-        <mat-cell matCellDef="let element"> {{element.price}}zł</mat-cell>
+        <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}}zł</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="purchaser">
-        <mat-header-cell matHeaderCellDef> Purchaser</mat-header-cell>
-        <mat-cell matCellDef="let element"> {{element.purchaser.name}} [{{element.purchaser.login}}]</mat-cell>
+        <mat-header-cell *matHeaderCellDef> Purchaser</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.purchaser.name}} [{{element.purchaser.login}}]</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <mat-header-cell matHeaderCellDef></mat-header-cell>
-        <mat-cell matCellDef="let element">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
           <button mat-button (click)="delete(element)" *ngIf="canDelete(element)">
             Delete
           </button>
@@ -39,8 +39,8 @@
       </ng-container>
 
 
-      <mat-header-row matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
 </div>
