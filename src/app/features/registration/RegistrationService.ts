@@ -10,14 +10,12 @@ import {catchError} from "rxjs/operators";
 @Injectable()
 export class RegistrationService {
 
-  private url = '/registrations';
-
   constructor(private http: HttpClient,
               private alertService: AlertService) {
   }
 
   register(registrationDTO: RegisterUserCommand): Observable<RegisterUserCommand> {
-    return this.http.post("http://localhost:8080/registration",
+    return this.http.post("registration",
       registrationDTO,
       {headers: {"Content-Type": "application/json"}})
       .pipe(
