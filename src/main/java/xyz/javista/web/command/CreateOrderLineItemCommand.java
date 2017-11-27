@@ -1,11 +1,19 @@
 package xyz.javista.web.command;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class CreateOrderLineItemCommand {
+    @NotNull
+    @DecimalMin("0.01")
     private Double price;
     private boolean isPaid;
     private UUID purchaserId;
+    @NotNull
+    @Length(min = 1, max = 255, message = "The dish name must be between 1 and 255 characters")
     private String dishName;
 
     public Double getPrice() {
