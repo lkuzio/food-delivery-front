@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="space-between stretch">
 
-  <div>
+  <div class="navbar">
 
-    <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" class="navbar">
+    <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start none">
         <a routerLink="/orders" *ngIf="this.authService.isLoggedIn()">
           <button mat-button>Active Orders</button>
@@ -17,7 +17,8 @@
       <div *ngIf="this.authService.isLoggedIn()">
         <button mat-button [matMenuTriggerFor]="menu">{{this.authService.getUser().name}}</button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout</button>
+          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout
+          </button>
         </mat-menu>
       </div>
     </mat-card>
@@ -26,7 +27,7 @@
   <div>
     <app-alert></app-alert>
   </div>
-  <div>
+  <div class="contentBox">
     <router-outlet></router-outlet>
   </div>
   <div>
