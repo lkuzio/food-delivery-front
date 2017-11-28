@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {OrderDTO} from "../../../dto/OrderDTO";
 import * as moment from 'moment';
 import {OrderListDataSource, OrderService} from "../OrderService";
@@ -35,7 +35,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   private calculateTotal() {
-    this.totalValue=0;
+    this.totalValue = 0;
     this.order.orderLineNumberList.forEach(value => this.totalValue += value.price);
   }
 
@@ -59,6 +59,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSource = this.orderService.OrderDetailsDataSource;
+    this.calculateTotal();
   }
 
   isActive(order: OrderDTO): boolean {
@@ -76,6 +77,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
       if (result != null) {
         this.orderService.delete(result);
         this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
+        this.calculateTotal();
       }
     });
   }

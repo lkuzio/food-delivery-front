@@ -1,9 +1,9 @@
 <div *ngIf="order!=null">
 
-  <mat-card>
+  <mat-card class="orderDetails">
     <h2>{{order.restaurantName}}</h2>
     <p>Order author: <b>{{order.author.name}}</b></p>
-    <p>{{order.description}}</p>
+    <pre>{{order.description}}</pre>
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
     <app-create-order-item *ngIf="isActive(order)" [orderDetailUrl]=orderUrl></app-create-order-item>
