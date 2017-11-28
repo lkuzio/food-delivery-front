@@ -7,6 +7,7 @@ import {
   MatDialogModule,
   MatInputModule,
   MatMenuModule,
+  MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatTableModule
@@ -32,7 +33,6 @@ import {TokenInterceptor} from "./commons/TokenInterceptor";
 import {CreateOrderComponent} from './features/orders/create-order/create-order.component';
 import {ErrorInterceptor} from "./commons/ErrorInterceptor";
 import {MomentModule} from 'angular2-moment';
-import {OrderDetailsComponent} from './features/orders/order-details/order-details.component';
 import {CreateOrderItemComponent} from './features/orders/create-order-item/create-order-item.component';
 import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
 import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/delete-order-item.component";
@@ -57,6 +57,7 @@ import {OrdersModule} from "./features/orders/orders.module";
     MatTableModule,
     MatDialogModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,

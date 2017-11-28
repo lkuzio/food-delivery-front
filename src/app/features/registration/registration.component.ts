@@ -18,12 +18,17 @@ export class RegistrationComponent {
   }
 
   registerUserCommand = new RegisterUserCommand();
+  registerInProgress: boolean = false;
 
   onSubmit() {
+    this.registerInProgress = true;
     this.registrationService.register(this.registerUserCommand).subscribe(() => {
-      this.router.navigateByUrl('login')
-      this.alertService.success("User created!");
-    });
+        this.router.navigateByUrl('login')
+        this.alertService.success("User created!");
+      },
+      error2 => {
+        this.registerInProgress = false;
+      });
 
   }
 

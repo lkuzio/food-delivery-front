@@ -20,7 +20,6 @@ export class RegistrationService {
       {headers: {"Content-Type": "application/json"}})
       .pipe(
         catchError(err => {
-            debugger;
             if (err.error.message === "VALIDATION_ERROR") {
               var error: ValidationError = err.error;
               var validationMessage = "";

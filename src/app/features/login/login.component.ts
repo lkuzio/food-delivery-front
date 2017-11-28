@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ViewEncapsulation } from '@angular/core'
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {LoginService} from "./LoginService";
 import {Router} from "@angular/router";
 
@@ -18,16 +17,22 @@ export class LoginCommand {
 export class LoginComponent implements OnInit {
 
   loginCommand = new LoginCommand();
+  loginInProgress: boolean = false;
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) {
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
+    this.loginInProgress = true;
     this.loginService.login(this.loginCommand.login, this.loginCommand.password)
-      .subscribe(()=>{
-        this.router.navigateByUrl("/orders");
-      });
+      .subscribe(() => {
+          this.router.navigateByUrl("/orders");
+        },
+        error2 => {
+          this.loginInProgress = false;
+        });
   }
 }

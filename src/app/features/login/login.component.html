@@ -12,6 +12,7 @@
       </mat-form-field>
       <br/>
       <button mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+      <mat-spinner *ngIf="loginInProgress"></mat-spinner>
     </form>
   </mat-card>
 </div>
