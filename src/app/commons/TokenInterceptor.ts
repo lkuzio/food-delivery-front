@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {AuthService} from "./AuthService";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  private API_URL: string =  'https://food-delivery-javista.herokuapp.com/' ;
+  private API_URL: string =  environment.apiEndpoint;
 
   constructor(public auth: AuthService) {
   }

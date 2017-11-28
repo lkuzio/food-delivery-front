@@ -8,12 +8,12 @@
   "scripts": {
     "ng": "ng",
     "start": "node Server.js",
-    "build": "ng build",
+    "build": "ng build ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "preinstall": "npm install -g @angular/cli",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --target=production --env=prod"
   },
   "private": true,
   "dependencies": {
