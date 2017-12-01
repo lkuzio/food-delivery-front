@@ -32,6 +32,9 @@ export class OrdersComponent implements OnInit {
               private alertService: AlertService,
               public dialog: MatDialog,
               private authService: AuthService) {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 
   ngOnInit() {
