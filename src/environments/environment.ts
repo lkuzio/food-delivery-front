@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8080/'
+  apiEndpoint: 'http://localhost:8080/',
+  clientId: "asdasdasd",
+  clientSecret: "asdasdasd"
 };

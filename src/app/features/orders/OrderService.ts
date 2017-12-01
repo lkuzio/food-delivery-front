@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {catchError} from "rxjs/operators";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {catchError, tap} from "rxjs/operators";
 import {AlertService} from "../../commons/alert/alert.service";
 import {Observable} from "rxjs/Observable";
 import {OrderDTO} from "../../dto/OrderDTO";
@@ -8,6 +8,12 @@ import {GenericResponse} from "../../dto/GenericResponse";
 import {OrderLine} from "../../dto/OrderLine";
 import {DataSource} from "@angular/cdk/collections";
 import {ValidationError} from "../../dto/ValidationError";
+import {UpdateOrderLine} from "../../dto/UpdateOrderLine";
+
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable()
 export class OrderService {
@@ -18,7 +24,6 @@ export class OrderService {
 
   constructor(private http: HttpClient,
               private alertService: AlertService) {
-
   }
 
   private URL = "orders";
@@ -61,11 +66,30 @@ export class OrderService {
         catchError(err => {
             var error: ValidationError = err.error;
             var validationMessage = "";
-            error.fieldErrors.forEach(x => validationMessage +=  x.message);
+            error.fieldErrors.forEach(x => validationMessage += x.message);
             this.alertService.error(validationMessage)
             return Observable.empty();
           }
         ));
+  }
+
+  delete(item: OrderLine) {
+    this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id).subscribe(() => {
+      },
+      err => {
+      });
+  }
+
+  updateOrderLine(item: UpdateOrderLine): Observable<OrderLine> {
+    var url = this.URL + '/' + item.order + '/lineItem/' + item.id;
+    return this.http.patch<OrderLine>(url, item, httpOptions)
+      .pipe(
+        tap(_ => console.log("updated")),
+        catchError(err => {
+          console.log(err);
+          return Observable.throw(err)
+        })
+      );
   }
 
   setSelectedOrder(element: OrderDTO) {
@@ -99,12 +123,13 @@ export class OrderService {
     return order;
   }
 
-  delete(item: OrderLine) {
-
-    this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id).subscribe(() => {
-      },
-      err => {
-      });
+  editOrder(editedOrder: OrderDTO) {
+    return this.http.put(this.URL+"/"+editedOrder.id, editedOrder)
+      .pipe(
+        catchError(err => {
+            return Observable.throw(err)
+          }
+        ));
   }
 }
 

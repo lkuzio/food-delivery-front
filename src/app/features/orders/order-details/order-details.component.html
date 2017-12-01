@@ -26,15 +26,29 @@
 
       <ng-container matColumnDef="purchaser">
         <mat-header-cell *matHeaderCellDef> Purchaser</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.purchaser.name}} [{{element.purchaser.login}}]</mat-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.purchaser.name}} [{{element.purchaser.login}}]
+        </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <ng-container matColumnDef="paid">
+        <mat-header-cell *matHeaderCellDef> Paid</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button (click)="delete(element)" *ngIf="canDelete(element)">
+          <mat-checkbox [ngModel]="element.paid" (change)="setPaid(element)"
+                        [disabled]="!canSetPaid(element)"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button (click)="edit(element)" [disabled]="!canEdit(element)">
+            Edit
+          </button>
+          <button mat-button (click)="delete(element)" [disabled]="!canDelete(element)">
             Delete
           </button>
+
         </mat-cell>
       </ng-container>
 

@@ -17,9 +17,12 @@ import {
   MatMenuModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatCheckboxModule
 } from "@angular/material";
 import {MomentModule} from "angular2-moment";
+import {EditOrderItemComponent} from "./edit-order-item/edit-order-item.component";
+import {EditOrderComponent} from "./edit-order/edit-order.component";
 
 @NgModule({
   imports: [
@@ -34,6 +37,7 @@ import {MomentModule} from "angular2-moment";
     MatTableModule,
     MatDialogModule,
     MatCardModule,
+    MatCheckboxModule,
     MomentModule,
     OrdersRoutingModule
   ],
@@ -42,7 +46,9 @@ import {MomentModule} from "angular2-moment";
     OrderDetailsComponent,
     CreateOrderComponent,
     CreateOrderItemComponent,
-    DeleteOrderItemComponent
+    DeleteOrderItemComponent,
+    EditOrderItemComponent,
+    EditOrderComponent
   ],
   providers: [
     OrderService

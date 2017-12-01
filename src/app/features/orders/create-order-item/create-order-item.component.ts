@@ -29,12 +29,12 @@ export class CreateOrderItemComponent implements OnInit {
   ngOnInit() {
     this.selectedOrder = this.orderService.selectedOrder;
     this.orderLine = new OrderLine();
+    this.orderLine.paid=false;
   }
 
   onCreateOrderLine() {
     this.orderLine.order = this.selectedOrder;
     this.orderLine.purchaser = this.authService.getUser();
-    this.orderLine.isPaid = false;
     this.orderService.createOrderItem(this.orderLine)
       .subscribe(
         (orderResp: OrderDTO) => {
