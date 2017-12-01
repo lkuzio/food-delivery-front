@@ -23,13 +23,16 @@
 
       <ng-container matColumnDef="author">
         <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="onSelect(element)"> {{element.author.name}}</mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.author.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="details">
         <mat-header-cell *matHeaderCellDef> Details</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a [routerLink]="['/order', element.id]">
-          <button mat-button>More</button></a>
+        <mat-cell *matCellDef="let element">
+          <a [routerLink]="['/order', element.id]">
+            <button mat-button>More</button>
+          </a>
+          <button mat-button (click)="editOrder(element)" [disabled]="!canEditOrderDef(element)">Edit</button>
         </mat-cell>
       </ng-container>
 

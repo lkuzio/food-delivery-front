@@ -7,6 +7,8 @@ import {OrderLine} from "../../../dto/OrderLine";
 import {AuthService} from "../../../commons/AuthService";
 import {DeleteOrderItemComponent} from "../delete-order-item/delete-order-item.component";
 import {MatDialog} from "@angular/material";
+import {EditOrderItemComponent} from "../edit-order-item/edit-order-item.component";
+import {UpdateOrderLine} from "../../../dto/UpdateOrderLine";
 
 @Component({
   selector: 'app-order-details',
@@ -17,7 +19,7 @@ import {MatDialog} from "@angular/material";
 export class OrderDetailsComponent implements OnInit, OnChanges {
 
   order: OrderDTO;
-  displayedColumns = ['dishName', 'price', 'purchaser', 'delete'];
+  displayedColumns = ['dishName', 'price', 'purchaser', 'paid', 'actions'];
   dataSource: OrderListDataSource;
   orderUrl: string;
   totalValue: number;
@@ -88,6 +90,46 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   shouldBeVisible() {
     return this.order.orderLineNumberList.length > 0
+  }
+
+  canEdit(element: OrderLine): boolean {
+    return element.purchaser.id === this.authService.getUser().id || this.order.author.id === this.authService.getUser().id;
+  }
+
+  edit(element: OrderLine) {
+    element.order = this.order;
+    let dialogRef = this.dialog.open(EditOrderItemComponent, {
+      width: '450px',
+      data: {lineItem: element}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.dataSource = this.orderService.OrderDetailsDataSource;
+        this.calculateTotal();
+      }
+    });
+  }
+
+  setPaid(element: OrderLine) {
+    element.paid = !element.paid;
+    let update: UpdateOrderLine = new UpdateOrderLine();
+    update.paid = element.paid;
+    update.id = element.id;
+    update.order = this.order.id;
+
+    this.orderService.updateOrderLine(update).subscribe(
+      response => {
+        element = response;
+      },
+      error2 => {
+        console.log(error2);
+      }
+    );
+  }
+
+  canSetPaid(element: OrderLine):boolean {
+    return this.order.author.id === this.authService.getUser().id;
   }
 }
 

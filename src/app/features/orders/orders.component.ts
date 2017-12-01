@@ -9,7 +9,8 @@ import {DataSource} from "@angular/cdk/collections";
 import {MatDialog} from "@angular/material";
 import {CreateOrderComponent} from "./create-order/create-order.component";
 import * as moment from 'moment';
-
+import {EditOrderComponent} from "./edit-order/edit-order.component";
+import {AuthService} from "../../commons/AuthService";
 
 
 @Component({
@@ -26,16 +27,20 @@ export class OrdersComponent implements OnInit {
   displayedColumns = ['restaurantName', 'endDatetime', 'author', 'details'];
   selectedOrder: OrderDTO;
 
-  constructor(private router: Router, private orderService: OrderService, private alertService: AlertService, public dialog: MatDialog) {
+  constructor(private router: Router,
+              private orderService: OrderService,
+              private alertService: AlertService,
+              public dialog: MatDialog,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
-    this.orders= new Array();
+    this.orders = new Array();
     this.getOrders();
   }
 
   getOrders() {
-    var beginOfDate=moment(new Date()).set("hours", 0).set("minutes", 0).format("YYYY-MM-DDTHH:mm")
+    var beginOfDate = moment(new Date()).set("hours", 0).set("minutes", 0).format("YYYY-MM-DDTHH:mm")
     this.orderService.getOrders(beginOfDate)
       .subscribe(
         response => {
@@ -59,6 +64,23 @@ export class OrdersComponent implements OnInit {
   onSelect(element: OrderDTO) {
     this.selectedOrder = element;
     this.orderService.setSelectedOrder(element);
+  }
+
+  editOrder(element: OrderDTO) {
+    let refdialog = this.dialog.open(EditOrderComponent, {
+      width: '450px',
+      data: {order: element}
+    });
+
+    refdialog.afterClosed().subscribe(
+      () => {
+        this.getOrders()
+      }
+    );
+  }
+
+  canEditOrderDef(element: OrderDTO): boolean {
+    return element.author.id === this.authService.getUser().id
   }
 }
 

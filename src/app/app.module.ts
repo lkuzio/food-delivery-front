@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatInputModule,
   MatMenuModule,
@@ -37,6 +38,8 @@ import {CreateOrderItemComponent} from './features/orders/create-order-item/crea
 import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
 import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/delete-order-item.component";
 import {OrdersModule} from "./features/orders/orders.module";
+import {EditOrderItemComponent} from "./features/orders/edit-order-item/edit-order-item.component";
+import {EditOrderComponent} from "./features/orders/edit-order/edit-order.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +61,7 @@ import {OrdersModule} from "./features/orders/orders.module";
     MatDialogModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
@@ -94,7 +98,7 @@ import {OrdersModule} from "./features/orders/orders.module";
       useClass: ErrorInterceptor,
       multi: true
     }],
-  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent],
+  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
