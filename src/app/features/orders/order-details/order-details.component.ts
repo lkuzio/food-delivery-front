@@ -17,12 +17,13 @@ import {UpdateOrderLine} from "../../../dto/UpdateOrderLine";
   encapsulation: ViewEncapsulation.None
 })
 export class OrderDetailsComponent implements OnInit, OnChanges {
+  orderLine: OrderLine;
 
   order: OrderDTO;
   displayedColumns = ['dishName', 'price', 'purchaser', 'paid', 'actions'];
   dataSource: OrderListDataSource;
   orderUrl: string;
-  totalValue: number;
+  totalValue: number = this.orderService.total;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -37,8 +38,9 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   private calculateTotal() {
-    this.totalValue = 0;
-    this.order.orderLineNumberList.forEach(value => this.totalValue += value.price);
+    var total=0;
+    this.order.orderLineNumberList.forEach(value => total += value.price);
+    this.totalValue=total;
   }
 
   ngOnInit() {
@@ -47,6 +49,9 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     this.route.paramMap.subscribe(param => {
       offerId = param.get('id')
     });
+    this.orderLine = new OrderLine();
+    this.orderLine.paid = false;
+
     if (offerId != null) {
       this.orderService.getOrderById(offerId).subscribe(response => {
         this.order = response;
@@ -68,6 +73,19 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     return moment(order.endDatetime).isAfter(new Date());
   }
 
+  onCreateOrderLine() {
+    this.orderLine.order=this.order;
+    this.orderLine.purchaser = this.authService.getUser();
+    this.orderService.createOrderItem(this.orderLine)
+      .subscribe(
+        (orderResp: OrderDTO) => {
+          this.order= orderResp;
+          this.orderService.setSelectedOrder(orderResp);
+          this.ngOnInit();
+        }
+      );
+  }
+
   delete(item: OrderLine) {
     item.order = this.order;
     let dialogRef = this.dialog.open(DeleteOrderItemComponent, {
@@ -79,6 +97,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
       if (result != null) {
         this.orderService.delete(result);
         this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
+        this.dataSource = this.orderService.OrderDetailsDataSource;
         this.calculateTotal();
       }
     });
@@ -128,7 +147,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     );
   }
 
-  canSetPaid(element: OrderLine):boolean {
+  canSetPaid(element: OrderLine): boolean {
     return this.order.author.id === this.authService.getUser().id;
   }
 }
