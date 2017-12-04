@@ -11,14 +11,9 @@
         <mat-cell *matCellDef="let element"> {{element.restaurantName}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef> description</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="endDatetime">
         <mat-header-cell *matHeaderCellDef> End time</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm DD-MM-YYYY'}}</mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.endDatetime | amDateFormat:' HH:mm'}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="author">

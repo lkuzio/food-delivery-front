@@ -5,6 +5,7 @@ import {OrderDTO} from "../../../dto/OrderDTO";
 import {AuthService} from "../../../commons/AuthService";
 import {OrderDetailsComponent} from "../order-details/order-details.component";
 import {AlertService} from "../../../commons/alert/alert.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CreateOrderItemComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private authService: AuthService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private  router: Router) {
     this.orderLine = new OrderLine();
   }
 
@@ -40,7 +42,8 @@ export class CreateOrderItemComponent implements OnInit {
         (orderResp: OrderDTO) => {
           this.selectedOrder = orderResp;
           this.orderService.setSelectedOrder(orderResp);
-          this.orderLine = new OrderLine();
+          this.orderLine = new OrderLine()
+          this.router.navigateByUrl("/order/"+this.selectedOrder.id);
         }
       );
 
