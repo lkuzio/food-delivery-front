@@ -19,34 +19,36 @@ export class LoginService {
   private CLIENT_ID: string = environment.clientId;
   private CLIENT_SECRET: string = environment.clientSecret;
 
+  headers = new HttpHeaders({
+    'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+    'Authorization': 'Basic ' + btoa(this.CLIENT_ID + ":" + this.CLIENT_SECRET)
+  });
+  options = {headers: this.headers};
+
   constructor(private http: HttpClient,
               private router: Router,
               private alertService: AlertService) {
     setInterval(() => {
-      if (Date.parse(localStorage.getItem("token_expires_in")) <= Date.now()) {
-        if (localStorage.getItem("stayLoggedIn") == "true") {
-          this.refreshToken();
-        } else {
-          this.logout();
+
+      if (localStorage.getItem("stayLoggedIn") != null) {
+        if (Number.parseInt(localStorage.getItem("token_expires_in")) <= Date.now().valueOf()) {
+          if (localStorage.getItem("stayLoggedIn") == "true") {
+            this.refreshToken();
+          } else {
+            this.logout();
+          }
         }
       }
 
     }, 5000);
   }
 
-  private refreshToken() {
-    debugger;
+  refreshToken() {
     const params = new URLSearchParams();
     params.append('grant_type', 'refresh_token');
     params.append('refresh_token', localStorage.getItem("refresh_token"));
 
-    const headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa(this.CLIENT_ID + ":" + this.CLIENT_SECRET)
-    });
-    const options = {headers: headers};
-
-    return this.http.post('oauth/token', params.toString(), options)
+    this.http.post('oauth/token', params.toString(), this.options)
       .pipe(
         tap((response: LoginResponse) => {
             if (response) {
@@ -57,17 +59,9 @@ export class LoginService {
             this.logout();
           }
         )
-      )
-  }
+      ).subscribe(() => {
 
-  private extractAuthenticationResponse(response: LoginResponse) {
-    localStorage.setItem('token', response.access_token);
-    localStorage.setItem('user_id', response.user.id);
-    localStorage.setItem('user_login', response.user.login);
-    localStorage.setItem('user_email', response.user.email);
-    localStorage.setItem('user_name', response.user.name);
-    localStorage.setItem('refresh_token', response.refresh_token);
-    localStorage.setItem("token_expires_in", Date.now() + response.expires_in.toString());
+    });
   }
 
   login(username: string, password: string) {
@@ -76,13 +70,7 @@ export class LoginService {
     params.append('password', password);
     params.append('grant_type', 'password');
 
-    const headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa(this.CLIENT_ID + ":" + this.CLIENT_SECRET)
-    });
-    const options = {headers: headers};
-
-    return this.http.post('oauth/token', params.toString(), options)
+    return this.http.post('oauth/token', params.toString(), this.options)
       .pipe(
         tap((response: LoginResponse) => {
             if (response) {
@@ -94,13 +82,29 @@ export class LoginService {
           }
         )
       )
+  }
 
+
+  private extractAuthenticationResponse(response: LoginResponse) {
+    localStorage.setItem('token', response.access_token);
+    localStorage.setItem('user_id', response.user.id);
+    localStorage.setItem('user_login', response.user.login);
+    localStorage.setItem('user_email', response.user.email);
+    localStorage.setItem('user_name', response.user.name);
+    localStorage.setItem('refresh_token', response.refresh_token);
+    localStorage.setItem("token_expires_in", (Date.now() + response.expires_in * 1000).toString());
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('user_login');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem("token_expires_in");
+    localStorage.removeItem("stayLoggedIn");
     this.router.navigateByUrl('/login');
-    //location.reload();
   }
 
 }

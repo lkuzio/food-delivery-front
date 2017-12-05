@@ -10,7 +10,7 @@
         <input matInput type="password" placeholder="Password" [(ngModel)]="loginCommand.password" id="password"
                name="password" maxlength="250" required>
       </mat-form-field>
-      <mat-checkbox checked="stayLoggedIn" (change)="stayLoggedIn=!stayLoggedIn">Stay logged in!</mat-checkbox>
+      <mat-checkbox checked="stayLoggedIn" [checked]="false" (change)="stayLoggedIn = !stayLoggedIn">Stay logged in!</mat-checkbox>
       <br/>
       <button mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
       <mat-spinner *ngIf="loginInProgress"></mat-spinner>

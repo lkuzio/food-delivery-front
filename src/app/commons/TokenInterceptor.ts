@@ -8,20 +8,22 @@ import {environment} from "../../environments/environment";
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  private API_URL: string =  environment.apiEndpoint;
+  private API_URL: string = environment.apiEndpoint;
 
   constructor(public auth: AuthService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({url: this.API_URL+request.url});
+    request = request.clone({url: this.API_URL + request.url});
     if (this.auth.getToken() != null) {
 
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.auth.getToken()}`
-        }
-      });
+      if (request.url.indexOf("auth/token") == -1) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${this.auth.getToken()}`
+          }
+        });
+      }
 
     }
     return next.handle(request);
