@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {OrderService} from "./OrderService";
-import {AlertService} from "../../commons/alert/alert.service";
 import {OrderDTO} from "../../dto/OrderDTO";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/of';
@@ -29,9 +28,11 @@ export class OrdersComponent implements OnInit {
 
   constructor(private router: Router,
               private orderService: OrderService,
-              private alertService: AlertService,
-              public dialog: MatDialog,
+              private dialog: MatDialog,
               private authService: AuthService) {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   ngOnInit() {
@@ -53,7 +54,6 @@ export class OrdersComponent implements OnInit {
 
   openDialogCreateOrder(): void {
     let refdialog = this.dialog.open(CreateOrderComponent);
-
     refdialog.afterClosed().subscribe(
       () => {
         this.getOrders()
@@ -61,10 +61,6 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  onSelect(element: OrderDTO) {
-    this.selectedOrder = element;
-    this.orderService.setSelectedOrder(element);
-  }
 
   editOrder(element: OrderDTO) {
     let refdialog = this.dialog.open(EditOrderComponent, {
