@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {OrderDTO} from "../../../dto/OrderDTO";
 import * as moment from 'moment';
 import {OrderListDataSource, OrderService} from "../OrderService";
