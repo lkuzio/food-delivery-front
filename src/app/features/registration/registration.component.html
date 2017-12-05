@@ -1,18 +1,21 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
-  <mat-card fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxFlex="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center center">
     <form class="registerForm" (ngSubmit)="onSubmit()" #registerForm="ngForm" id="registerForm" fxLayout="column"
           fxLayoutAlign="center center">
-      <mat-form-field class="full-width">
+      <mat-form-field>
         <input matInput placeholder="Name" [(ngModel)]="registerUserCommand.name" id="name" name="name" maxlength="32">
       </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Email" [(ngModel)]="registerUserCommand.email" required id="email" name="email" maxlength="255" type="email">
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="registerUserCommand.email" required id="email" name="email"
+               maxlength="255" type="email">
       </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Login" [(ngModel)]="registerUserCommand.login" required id="login" name="login" maxlength="32">
+      <mat-form-field>
+        <input matInput placeholder="Login" [(ngModel)]="registerUserCommand.login" required id="login" name="login"
+               maxlength="32">
       </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput type="password" placeholder="Password" [(ngModel)]="registerUserCommand.password" id="password" maxlength="255"
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" [(ngModel)]="registerUserCommand.password" id="password"
+               maxlength="255"
                name="password" required>
       </mat-form-field>
       <button mat-raised-button [disabled]="!registerForm.form.valid">Sign up!</button>

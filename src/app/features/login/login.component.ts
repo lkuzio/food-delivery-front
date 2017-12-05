@@ -18,16 +18,17 @@ export class LoginComponent implements OnInit {
 
   loginCommand = new LoginCommand();
   loginInProgress: boolean = false;
-  stayLoggedIn: boolean = localStorage.getItem("stayLoggedIn")=="true";
+  stayLoggedIn: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.loginService.logout();
   }
 
   onSubmit() {
-    localStorage.setItem("stayLoggedIn", this.stayLoggedIn+"")
+    localStorage.setItem("stayLoggedIn", this.stayLoggedIn + "")
     this.loginInProgress = true;
     this.loginService.login(this.loginCommand.login, this.loginCommand.password)
       .subscribe(() => {

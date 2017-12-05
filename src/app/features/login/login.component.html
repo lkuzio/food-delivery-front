@@ -1,16 +1,16 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
-  <mat-card fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
-    <form class="loginForm" (ngSubmit)="onSubmit()" #loginForm="ngForm" id="loginForm" fxLayout="column"
+  <mat-card fxFlex="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center center">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="loginForm" fxLayout="column"
           fxLayoutAlign="center center">
-      <mat-form-field class="full-width">
+      <mat-form-field>
         <input matInput placeholder="Login" [(ngModel)]="loginCommand.login" id="login" name="login" maxlength="250"
                required>
       </mat-form-field>
-      <mat-form-field class="full-width">
+      <mat-form-field>
         <input matInput type="password" placeholder="Password" [(ngModel)]="loginCommand.password" id="password"
                name="password" maxlength="250" required>
       </mat-form-field>
-      <mat-checkbox checked="stayLoggedIn" (change)="stayLoggedIn=!stayLoggedIn">Stay logged in!</mat-checkbox>
+      <mat-checkbox checked="stayLoggedIn" [checked]="false" (change)="stayLoggedIn = !stayLoggedIn">Stay logged in!</mat-checkbox>
       <br/>
       <button mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
       <mat-spinner *ngIf="loginInProgress"></mat-spinner>

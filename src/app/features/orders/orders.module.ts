@@ -11,14 +11,14 @@ import {DeleteOrderItemComponent} from "./delete-order-item/delete-order-item.co
 import {
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatTableModule,
-  MatCheckboxModule
+  MatTableModule
 } from "@angular/material";
 import {MomentModule} from "angular2-moment";
 import {EditOrderItemComponent} from "./edit-order-item/edit-order-item.component";

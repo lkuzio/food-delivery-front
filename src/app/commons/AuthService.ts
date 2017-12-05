@@ -16,7 +16,6 @@ export class AuthService implements CanActivate {
     if (localStorage.getItem('token')) {
       return true;
     }
-
     this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
     return false;
   }

@@ -16,6 +16,13 @@ export class ErrorInterceptor implements HttpInterceptor {
     }, err => {
       if (err instanceof HttpErrorResponse && err.status == 401) {
         localStorage.removeItem('token');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_login');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem("token_expires_in");
+        localStorage.removeItem("stayLoggedIn");
         this.router.navigateByUrl('/login');
         location.reload();
       }

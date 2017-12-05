@@ -27,6 +27,7 @@ export class OrderService {
   }
 
   private URL = "orders";
+  private _total: number = 0;
 
   getOrders(beginOfDate: string): Observable<GenericResponse<OrderDTO>> {
     var url = this.URL;
@@ -103,9 +104,7 @@ export class OrderService {
   }
 
   get OrderDetailsDataSource() {
-    if (this.selectedOrder != null) {
-      this.orderListDataSource = new OrderListDataSource(this.selectedOrder.orderLineNumberList);
-    }
+    this.orderListDataSource = new OrderListDataSource(this.selectedOrder.orderLineNumberList);
     return this.orderListDataSource;
   }
 
@@ -124,12 +123,21 @@ export class OrderService {
   }
 
   editOrder(editedOrder: OrderDTO) {
-    return this.http.put(this.URL+"/"+editedOrder.id, editedOrder)
+    return this.http.put(this.URL + "/" + editedOrder.id, editedOrder)
       .pipe(
         catchError(err => {
             return Observable.throw(err)
           }
         ));
+  }
+
+
+  get total(): number {
+    return this._total;
+  }
+
+  set total(value: number) {
+    this._total = value;
   }
 }
 
