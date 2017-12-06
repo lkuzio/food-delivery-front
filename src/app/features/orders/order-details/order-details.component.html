@@ -6,7 +6,7 @@
     <pre>{{order.description}}</pre>
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
-    <div *ngIf="!isActive(order)">
+    <div *ngIf="isActive(order)">
       <form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm">
         <mat-form-field class="full-width">
           <input matInput placeholder="Dish" [(ngModel)]="orderLine.dishName" id="dishName"
