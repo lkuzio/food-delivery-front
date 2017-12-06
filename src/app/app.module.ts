@@ -11,7 +11,8 @@ import {
   MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatIconModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -40,6 +41,8 @@ import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/dele
 import {OrdersModule} from "./features/orders/orders.module";
 import {EditOrderItemComponent} from "./features/orders/edit-order-item/edit-order-item.component";
 import {EditOrderComponent} from "./features/orders/edit-order/edit-order.component";
+import { EditProfileComponent } from './features/profile/edit-profile/edit-profile.component';
+import {ProfileService} from './features/profile/ProfileService';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import {EditOrderComponent} from "./features/orders/edit-order/edit-order.compon
     RegistrationComponent,
     LoginComponent,
     AlertComponent,
-    HomeComponent
+    HomeComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,7 @@ import {EditOrderComponent} from "./features/orders/edit-order/edit-order.compon
     MatCardModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatIconModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
@@ -84,10 +89,14 @@ import {EditOrderComponent} from "./features/orders/edit-order/edit-order.compon
       {
         path: 'registration',
         component: RegistrationComponent
+      },
+      {
+        path: 'profile/edit',
+        component: EditProfileComponent
       }
     ])
   ],
-  providers: [AlertService, RegistrationService, LoginService, AuthService, OrderService,
+  providers: [AlertService, RegistrationService, LoginService, AuthService, OrderService, ProfileService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -24,3 +24,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
+
+md-icon{
+  font-family: 'Material Icons' !important;
+}
