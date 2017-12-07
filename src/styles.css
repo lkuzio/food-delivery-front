@@ -24,3 +24,11 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  display: block!important;
+}

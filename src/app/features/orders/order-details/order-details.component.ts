@@ -1,14 +1,14 @@
-import {Component, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {OrderDTO} from "../../../dto/OrderDTO";
+import {Component, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {OrderDTO} from '../../../dto/OrderDTO';
 import * as moment from 'moment';
-import {OrderListDataSource, OrderService} from "../OrderService";
-import {ActivatedRoute, Router} from "@angular/router";
-import {OrderLine} from "../../../dto/OrderLine";
-import {AuthService} from "../../../commons/AuthService";
-import {DeleteOrderItemComponent} from "../delete-order-item/delete-order-item.component";
-import {MatDialog} from "@angular/material";
-import {EditOrderItemComponent} from "../edit-order-item/edit-order-item.component";
-import {UpdateOrderLine} from "../../../dto/UpdateOrderLine";
+import {OrderListDataSource, OrderService} from '../OrderService';
+import {ActivatedRoute, Router} from '@angular/router';
+import {OrderLine} from '../../../dto/OrderLine';
+import {AuthService} from '../../../commons/AuthService';
+import {DeleteOrderItemComponent} from '../delete-order-item/delete-order-item.component';
+import {MatDialog} from '@angular/material';
+import {EditOrderItemComponent} from '../edit-order-item/edit-order-item.component';
+import {UpdateOrderLine} from '../../../dto/UpdateOrderLine';
 
 @Component({
   selector: 'app-order-details',
@@ -38,16 +38,16 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   private calculateTotal() {
-    var total=0;
+    let total = 0;
     this.order.orderLineNumberList.forEach(value => total += value.price);
-    this.totalValue=total;
+    this.totalValue = total;
   }
 
   ngOnInit() {
-    var offerId;
+    let offerId;
     this.orderUrl = this.router.url;
     this.route.paramMap.subscribe(param => {
-      offerId = param.get('id')
+      offerId = param.get('id');
     });
     this.orderLine = new OrderLine();
     this.orderLine.paid = false;
@@ -74,12 +74,12 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   onCreateOrderLine() {
-    this.orderLine.order=this.order;
+    this.orderLine.order = this.order;
     this.orderLine.purchaser = this.authService.getUser();
     this.orderService.createOrderItem(this.orderLine)
       .subscribe(
         (orderResp: OrderDTO) => {
-          this.order= orderResp;
+          this.order = orderResp;
           this.orderService.setSelectedOrder(orderResp);
           this.ngOnInit();
         }
@@ -88,8 +88,8 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   delete(item: OrderLine) {
     item.order = this.order;
-    let dialogRef = this.dialog.open(DeleteOrderItemComponent, {
-      width: '450px',
+    const dialogRef = this.dialog.open(DeleteOrderItemComponent, {
+      minWidth: '30vw',
       data: {lineItem: item}
     });
 
@@ -108,7 +108,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   shouldBeVisible() {
-    return this.order.orderLineNumberList.length > 0
+    return this.order.orderLineNumberList.length > 0;
   }
 
   canEdit(element: OrderLine): boolean {
@@ -117,8 +117,8 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   edit(element: OrderLine) {
     element.order = this.order;
-    let dialogRef = this.dialog.open(EditOrderItemComponent, {
-      width: '450px',
+    const dialogRef = this.dialog.open(EditOrderItemComponent, {
+      minWidth: '30vw',
       data: {lineItem: element}
     });
 
@@ -132,7 +132,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   setPaid(element: OrderLine) {
     element.paid = !element.paid;
-    let update: UpdateOrderLine = new UpdateOrderLine();
+    const update: UpdateOrderLine = new UpdateOrderLine();
     update.paid = element.paid;
     update.id = element.id;
     update.order = this.order.id;

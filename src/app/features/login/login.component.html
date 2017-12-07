@@ -1,7 +1,6 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
   <mat-card fxFlex="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center center">
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="loginForm" fxLayout="column"
-          fxLayoutAlign="center center">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="loginForm" fxLayout="column" fxFlexFill>
       <mat-form-field>
         <input matInput placeholder="Login" [(ngModel)]="loginCommand.login" id="login" name="login" maxlength="250"
                required>
