@@ -6,9 +6,11 @@
     <pre>{{order.description}}</pre>
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
+
     <mat-card-content *ngIf="isActive(order)">
       <form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm" fxLayout="column">
         <mat-form-field>
+
           <input matInput placeholder="Dish" [(ngModel)]="orderLine.dishName" id="dishName"
                  name="dishName" minlength="3" maxlength="250" required>
           <mat-hint>min 3 characters</mat-hint>

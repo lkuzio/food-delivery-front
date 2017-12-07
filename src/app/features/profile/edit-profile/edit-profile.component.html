@@ -1,0 +1,21 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
+  <mat-card fxFlex="20" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center center">
+    <form class="profileForm" (ngSubmit)="onSubmit()" #profileForm="ngForm" id="profileForm" fxLayout="column"
+          fxLayoutAlign="center center">
+      <mat-form-field class="full-width">
+        <input class="centerText" matInput placeholder="Name" [(ngModel)]="user.name" id="name" name="name" maxlength="32">
+        <button type=button mat-button *ngIf="user.name" matSuffix mat-icon-button aria-label="Clear" (click)="user.name=''">
+          <i class="material-icons">clear</i>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input class="centerText" matInput placeholder="Email" [(ngModel)]="user.email" required id="email" name="email"
+               maxlength="255" type="email">
+        <button type=button mat-button *ngIf="user.email" matSuffix mat-icon-button aria-label="Clear" (click)="user.email=''">
+          <i class="material-icons">clear</i>
+        </button>
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="!profileForm.form.valid">Save</button>
+    </form>
+  </mat-card>
+</div>

@@ -25,10 +25,10 @@ textarea {
   line-height: inherit;
 }
 
-.full-width {
-  width: 100%;
-}
-
 .mat-form-field {
   display: block!important;
+
+md-icon{
+  font-family: 'Material Icons' !important;
+
 }
