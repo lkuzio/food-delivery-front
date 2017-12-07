@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from "@angular/router";
-import {OrderService} from "./OrderService";
-import {OrderDTO} from "../../dto/OrderDTO";
-import {Observable} from "rxjs/Observable";
+import {Router} from '@angular/router';
+import {OrderService} from './OrderService';
+import {OrderDTO} from '../../dto/OrderDTO';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import {DataSource} from "@angular/cdk/collections";
-import {MatDialog} from "@angular/material";
-import {CreateOrderComponent} from "./create-order/create-order.component";
+import {DataSource} from '@angular/cdk/collections';
+import {MatDialog} from '@angular/material';
+import {CreateOrderComponent} from './create-order/create-order.component';
 import * as moment from 'moment';
-import {EditOrderComponent} from "./edit-order/edit-order.component";
-import {AuthService} from "../../commons/AuthService";
+import {EditOrderComponent} from './edit-order/edit-order.component';
+import {AuthService} from '../../commons/AuthService';
 
 
 @Component({
@@ -41,11 +41,11 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
-    var beginOfDate = moment(new Date()).set("hours", 0).set("minutes", 0).format("YYYY-MM-DDTHH:mm")
+    const beginOfDate = moment(new Date()).set('hours', 0).set('minutes', 0).format('YYYY-MM-DDTHH:mm');
     this.orderService.getOrders(beginOfDate)
       .subscribe(
         response => {
-          this.orders = response.content
+          this.orders = response.content;
           this.dataSource = new OrderListDataSource(this.orders);
         },
         error => this.errorMessage = <any>error
@@ -53,30 +53,32 @@ export class OrdersComponent implements OnInit {
   }
 
   openDialogCreateOrder(): void {
-    let refdialog = this.dialog.open(CreateOrderComponent);
+    const refdialog = this.dialog.open(CreateOrderComponent, {
+      minWidth: '30vw'
+    });
     refdialog.afterClosed().subscribe(
       () => {
-        this.getOrders()
+        this.getOrders();
       }
     );
   }
 
 
   editOrder(element: OrderDTO) {
-    let refdialog = this.dialog.open(EditOrderComponent, {
-      width: '450px',
+    const refdialog = this.dialog.open(EditOrderComponent, {
+      minWidth: '30vw',
       data: {order: element}
     });
 
     refdialog.afterClosed().subscribe(
       () => {
-        this.getOrders()
+        this.getOrders();
       }
     );
   }
 
   canEditOrderDef(element: OrderDTO): boolean {
-    return element.author.id === this.authService.getUser().id
+    return element.author.id === this.authService.getUser().id;
   }
 }
 

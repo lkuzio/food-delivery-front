@@ -2,12 +2,12 @@
 <mat-dialog-content>
 
   <mat-card>
-       <mat-form-field class="full-width">
+       <mat-form-field>
       <input matInput placeholder="Dish" [(ngModel)]="item.dishName" id="dishName"
              name="dishName" minlength="3" maxlength="250" required>
       <mat-hint>min 3 characters</mat-hint>
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput type="number" placeholder="price" [(ngModel)]="item.price" id="price"
              name="price" min="0.01" max="9999.99" required>
       <span matSuffix>zł</span>

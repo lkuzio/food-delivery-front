@@ -25,6 +25,10 @@ textarea {
   line-height: inherit;
 }
 
+.mat-form-field {
+  display: block!important;
+
 md-icon{
   font-family: 'Material Icons' !important;
+
 }
