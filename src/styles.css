@@ -26,9 +26,9 @@ textarea {
 }
 
 .mat-form-field {
-  display: block!important;
+  display: block !important;
+}
 
-md-icon{
+.md-icon{
   font-family: 'Material Icons' !important;
-
 }
