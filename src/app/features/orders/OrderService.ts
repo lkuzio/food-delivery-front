@@ -82,10 +82,9 @@ export class OrderService {
   }
 
   updateOrderLine(item: UpdateOrderLine): Observable<OrderLine> {
-    let url = this.URL + '/' + item.order + '/lineItem/' + item.id;
+    const url = this.URL + '/' + item.order + '/lineItem/' + item.id;
     return this.http.patch<OrderLine>(url, item, httpOptions)
       .pipe(
-        tap(_ => console.log('updated')),
         catchError(err => {
           console.log(err);
           return Observable.throw(err);
