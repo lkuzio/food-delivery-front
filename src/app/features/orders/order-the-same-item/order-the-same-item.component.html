@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Order the same dish</h2>
+<mat-dialog-content>
+  <mat-card>
+    Would you like to order the same dish <b>{{lineItem.dishName}}</b>?
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="lineItem">Yes</button>
+  <button mat-raised-button color="primary" (click)="onNoClick()">Nope :(</button>
+</mat-dialog-actions>
