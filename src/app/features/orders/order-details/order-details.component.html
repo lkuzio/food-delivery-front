@@ -65,7 +65,9 @@
           <button mat-button (click)="delete(element)" [disabled]="!canDelete(element)">
             Delete
           </button>
-
+          <button mat-button (click)="orderTheSame(element)" title="Order the same dish">
+            <i class="material-icons">add_shopping_cart</i>
+          </button>
         </mat-cell>
       </ng-container>
 

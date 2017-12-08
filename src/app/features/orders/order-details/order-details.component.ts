@@ -9,6 +9,7 @@ import {DeleteOrderItemComponent} from '../delete-order-item/delete-order-item.c
 import {MatDialog} from '@angular/material';
 import {EditOrderItemComponent} from '../edit-order-item/edit-order-item.component';
 import {UpdateOrderLine} from '../../../dto/UpdateOrderLine';
+import {OrderTheSameItemComponent} from '../order-the-same-item/order-the-same-item.component';
 
 @Component({
   selector: 'app-order-details',
@@ -150,6 +151,29 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   canSetPaid(element: OrderLine): boolean {
     return this.order.author.id === this.authService.getUser().id;
   }
+
+  orderTheSame(order: OrderLine) {
+    const selectedOrder = Object.assign({}, order);
+    selectedOrder.order = this.order;
+    selectedOrder.purchaser = this.authService.getUser();
+    selectedOrder.paid = false;
+
+    const dialogRef = this.dialog.open(OrderTheSameItemComponent, {
+      minWidth: '30vw',
+      data: {lineItem: selectedOrder}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.orderService.createOrderItem(result)
+          .subscribe(
+            (orderResp: OrderDTO) => {
+              this.order = orderResp;
+              this.orderService.setSelectedOrder(orderResp);
+              this.ngOnInit();
+            }
+          );
+      }
+    });
+  }
 }
-
-
