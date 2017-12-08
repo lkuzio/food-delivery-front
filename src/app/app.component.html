@@ -17,8 +17,8 @@
       <div *ngIf="this.authService.isLoggedIn()">
         <button mat-button [matMenuTriggerFor]="menu">{{this.authService.getUser().name}}</button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout
-          </button>
+          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" routerLink="/profile/edit" >Edit profile</button>
+          <button mat-menu-item *ngIf="this.authService.isLoggedIn()" (click)="this.loginService.logout();">Logout</button>
         </mat-menu>
       </div>
     </mat-card>

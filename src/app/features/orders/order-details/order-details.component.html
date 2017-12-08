@@ -6,14 +6,16 @@
     <pre>{{order.description}}</pre>
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
-    <div *ngIf="isActive(order)">
-      <form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm">
-        <mat-form-field class="full-width">
+
+    <mat-card-content *ngIf="isActive(order)">
+      <form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm" fxLayout="column">
+        <mat-form-field>
+
           <input matInput placeholder="Dish" [(ngModel)]="orderLine.dishName" id="dishName"
                  name="dishName" minlength="3" maxlength="250" required>
           <mat-hint>min 3 characters</mat-hint>
         </mat-form-field>
-        <mat-form-field class="full-width">
+        <mat-form-field flex>
           <input matInput type="number" placeholder="price" [(ngModel)]="orderLine.price" id="price"
                  name="price" min="0.01" max="9999.99" required>
           <span matSuffix>zł</span>
@@ -21,7 +23,7 @@
       </form>
 
       <button mat-raised-button [disabled]="!createOrderLineForm.form.valid" (click)="onCreateOrderLine()">Order</button>
-    </div>
+    </mat-card-content>
     <h2 *ngIf="!isActive(order)">Time is out</h2>
   </mat-card>
 
@@ -48,9 +50,9 @@
 
       <ng-container matColumnDef="paid">
         <mat-header-cell *matHeaderCellDef> Paid</mat-header-cell>
-        <mat-cell *matCellDef="let element">
+        <mat-cell class="paidCheckbox-visible" *matCellDef="let element">
           <mat-checkbox [ngModel]="element.paid" (change)="setPaid(element)"
-                        [disabled]="!canSetPaid(element)"></mat-checkbox>
+                        [disabled]="!canSetPaid(element)" ></mat-checkbox>
         </mat-cell>
       </ng-container>
 

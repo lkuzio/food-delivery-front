@@ -1,3 +1,6 @@
 .orderDetails{
   background-color: rgba(255,255,255,.85);
 }
+.paidCheckbox-visible {
+  overflow: visible!important
+}
