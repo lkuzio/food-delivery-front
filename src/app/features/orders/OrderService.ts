@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, tap} from "rxjs/operators";
-import {AlertService} from "../../commons/alert/alert.service";
-import {Observable} from "rxjs/Observable";
-import {OrderDTO} from "../../dto/OrderDTO";
-import {GenericResponse} from "../../dto/GenericResponse";
-import {OrderLine} from "../../dto/OrderLine";
-import {DataSource} from "@angular/cdk/collections";
-import {ValidationError} from "../../dto/ValidationError";
-import {UpdateOrderLine} from "../../dto/UpdateOrderLine";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
+import {AlertService} from '../../commons/alert/alert.service';
+import {Observable} from 'rxjs/Observable';
+import {OrderDTO} from '../../dto/OrderDTO';
+import {GenericResponse} from '../../dto/GenericResponse';
+import {OrderLine} from '../../dto/OrderLine';
+import {DataSource} from '@angular/cdk/collections';
+import {ValidationError} from '../../dto/ValidationError';
+import {UpdateOrderLine} from '../../dto/UpdateOrderLine';
 
 
 const httpOptions = {
@@ -26,27 +26,27 @@ export class OrderService {
               private alertService: AlertService) {
   }
 
-  private URL = "orders";
-  private _total: number = 0;
+  private URL = 'orders';
+  private _total = 0;
 
   getOrders(beginOfDate: string): Observable<GenericResponse<OrderDTO>> {
-    var url = this.URL;
+    let url = this.URL;
     if (beginOfDate != null) {
-      url += "?endDate=" + beginOfDate;
+      url += '?endDate=' + beginOfDate;
     }
     return this.http.get(url)
       .pipe(
         catchError(err => {
-            return Observable.throw(err)
+            return Observable.throw(err);
           }
         ));
   }
 
   getOrderById(offerId: string): Observable<OrderDTO> {
-    var url = this.URL + "/" + offerId;
+    let url = this.URL + '/' + offerId;
     return this.http.get(url).pipe(
       catchError(err => {
-          return Observable.throw(err)
+          return Observable.throw(err);
         }
       ));
   }
@@ -55,20 +55,20 @@ export class OrderService {
     return this.http.post(this.URL, orderDTO)
       .pipe(
         catchError(err => {
-            return Observable.throw(err)
+            return Observable.throw(err);
           }
         ));
   }
 
   createOrderItem(orderLine: OrderLine) {
-    var url = this.URL + "/" + orderLine.order.id + "/lineItem"
+    let url = this.URL + '/' + orderLine.order.id + '/lineItem';
     return this.http.post(url, orderLine)
       .pipe(
         catchError(err => {
-            var error: ValidationError = err.error;
-            var validationMessage = "";
+            let error: ValidationError = err.error;
+            let validationMessage = '';
             error.fieldErrors.forEach(x => validationMessage += x.message);
-            this.alertService.error(validationMessage)
+            this.alertService.error(validationMessage);
             return Observable.empty();
           }
         ));
@@ -82,13 +82,12 @@ export class OrderService {
   }
 
   updateOrderLine(item: UpdateOrderLine): Observable<OrderLine> {
-    var url = this.URL + '/' + item.order + '/lineItem/' + item.id;
+    const url = this.URL + '/' + item.order + '/lineItem/' + item.id;
     return this.http.patch<OrderLine>(url, item, httpOptions)
       .pipe(
-        tap(_ => console.log("updated")),
         catchError(err => {
           console.log(err);
-          return Observable.throw(err)
+          return Observable.throw(err);
         })
       );
   }
@@ -110,10 +109,10 @@ export class OrderService {
 
 
   getOrder(offerId: string): OrderDTO {
-    var order;
+    let order;
     this.getOrderById(offerId).subscribe(
       response => {
-        order = response
+        order = response;
       },
       error2 => {
         order = null;
@@ -123,14 +122,13 @@ export class OrderService {
   }
 
   editOrder(editedOrder: OrderDTO) {
-    return this.http.put(this.URL + "/" + editedOrder.id, editedOrder)
+    return this.http.put(this.URL + '/' + editedOrder.id, editedOrder)
       .pipe(
         catchError(err => {
-            return Observable.throw(err)
+            return Observable.throw(err);
           }
         ));
   }
-
 
   get total(): number {
     return this._total;

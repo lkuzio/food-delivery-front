@@ -24,25 +24,26 @@ import {RegistrationComponent} from './features/registration/registration.compon
 import {LoginComponent} from './features/login/login.component';
 import {AlertComponent} from './commons/alert/alert.component';
 
-import {AlertService} from "./commons/alert/alert.service";
-import {RegistrationService} from "./features/registration/RegistrationService";
-import {LoginService} from "./features/login/LoginService";
-import {AuthService} from "./commons/AuthService";
+import {AlertService} from './commons/alert/alert.service';
+import {RegistrationService} from './features/registration/RegistrationService';
+import {LoginService} from './features/login/LoginService';
+import {AuthService} from './commons/AuthService';
 import {OrdersComponent} from './features/orders/orders.component';
 import {HomeComponent} from './features/home/home.component';
-import {OrderService} from "./features/orders/OrderService";
-import {TokenInterceptor} from "./commons/TokenInterceptor";
+import {OrderService} from './features/orders/OrderService';
+import {TokenInterceptor} from './commons/TokenInterceptor';
 import {CreateOrderComponent} from './features/orders/create-order/create-order.component';
-import {ErrorInterceptor} from "./commons/ErrorInterceptor";
+import {ErrorInterceptor} from './commons/ErrorInterceptor';
 import {MomentModule} from 'angular2-moment';
 import {CreateOrderItemComponent} from './features/orders/create-order-item/create-order-item.component';
-import {OrdersRoutingModule} from "./features/orders/orders-routing.module";
-import {DeleteOrderItemComponent} from "./features/orders/delete-order-item/delete-order-item.component";
-import {OrdersModule} from "./features/orders/orders.module";
-import {EditOrderItemComponent} from "./features/orders/edit-order-item/edit-order-item.component";
-import {EditOrderComponent} from "./features/orders/edit-order/edit-order.component";
+import {OrdersRoutingModule} from './features/orders/orders-routing.module';
+import {DeleteOrderItemComponent} from './features/orders/delete-order-item/delete-order-item.component';
+import {OrdersModule} from './features/orders/orders.module';
+import {EditOrderItemComponent} from './features/orders/edit-order-item/edit-order-item.component';
+import {EditOrderComponent} from './features/orders/edit-order/edit-order.component';
 import { EditProfileComponent } from './features/profile/edit-profile/edit-profile.component';
 import {ProfileService} from './features/profile/ProfileService';
+import {OrderTheSameItemComponent} from './features/orders/order-the-same-item/order-the-same-item.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,7 @@ import {ProfileService} from './features/profile/ProfileService';
       useClass: ErrorInterceptor,
       multi: true
     }],
-  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent],
+  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent, OrderTheSameItemComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
