@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Delete order</h2>
+<mat-dialog-content>
+  <mat-card>
+    Would you like to delete selected order: <b>{{order.restaurantName}}</b>?
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="order">Yes</button>
+  <button mat-raised-button color="primary" (click)="onNoClick()">Nope :(</button>
+</mat-dialog-actions>
