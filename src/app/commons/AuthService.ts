@@ -1,6 +1,6 @@
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Injectable} from "@angular/core";
-import {UserDTO} from "../dto/UserDTO";
+import {ActivatedRouteSnapshot, CanActivate, NavigationExtras, Router, RouterStateSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {UserDTO} from '../dto/UserDTO';
 
 
 @Injectable()
@@ -16,7 +16,12 @@ export class AuthService implements CanActivate {
     if (localStorage.getItem('token')) {
       return true;
     }
-    this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        returnUrl: state.url
+      }
+    };
+    this.router.navigate(['/login'], navigationExtras);
     return false;
   }
 
@@ -34,11 +39,11 @@ export class AuthService implements CanActivate {
   }
 
   getUser(): UserDTO {
-    var login = localStorage.getItem('user_login');
-    var id = localStorage.getItem('user_id');
-    var email = localStorage.getItem('user_email');
-    var name = localStorage.getItem('user_name');
-    var user = new UserDTO(id, name, email, login);
+    const login = localStorage.getItem('user_login');
+    const id = localStorage.getItem('user_id');
+    const email = localStorage.getItem('user_email');
+    const name = localStorage.getItem('user_name');
+    const user = new UserDTO(id, name, email, login);
     return user;
   }
 

@@ -31,11 +31,13 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
               private orderService: OrderService,
               private authService: AuthService,
               public dialog: MatDialog) {
-    setInterval(() => {
-      this.dataSource = this.orderService.OrderDetailsDataSource;
-      this.calculateTotal();
+    if (this.orderLine !== undefined) {
+      setInterval(() => {
+        this.dataSource = this.orderService.OrderDetailsDataSource;
+        this.calculateTotal();
 
-    }, 1000);
+      }, 1000);
+    }
   }
 
   private calculateTotal() {
@@ -60,6 +62,8 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
         this.dataSource = this.orderService.OrderDetailsDataSource;
         this.calculateTotal();
       });
+    } else {
+      this.router.navigateByUrl('/orders');
     }
 
   }
