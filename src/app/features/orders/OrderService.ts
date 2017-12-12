@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {AlertService} from '../../commons/alert/alert.service';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import {OrderDTO} from '../../dto/OrderDTO';
 import {GenericResponse} from '../../dto/GenericResponse';
 import {OrderLine} from '../../dto/OrderLine';
 import {DataSource} from '@angular/cdk/collections';
 import {ValidationError} from '../../dto/ValidationError';
 import {UpdateOrderLine} from '../../dto/UpdateOrderLine';
+import {Router} from '@angular/router';
 
 
 const httpOptions = {
@@ -23,7 +25,8 @@ export class OrderService {
   orderListDataSource: OrderListDataSource;
 
   constructor(private http: HttpClient,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private route: Router) {
   }
 
   private URL = 'orders';
@@ -43,10 +46,14 @@ export class OrderService {
   }
 
   getOrderById(offerId: string): Observable<OrderDTO> {
-    let url = this.URL + '/' + offerId;
+    const url = this.URL + '/' + offerId;
     return this.http.get(url).pipe(
       catchError(err => {
-          return Observable.throw(err);
+          if (err.status === 404) {
+            this.route.navigateByUrl('/orders');
+          } else {
+            return Observable.throw(err);
+          }
         }
       ));
   }
@@ -61,11 +68,11 @@ export class OrderService {
   }
 
   createOrderItem(orderLine: OrderLine) {
-    let url = this.URL + '/' + orderLine.order.id + '/lineItem';
+    const url = this.URL + '/' + orderLine.order.id + '/lineItem';
     return this.http.post(url, orderLine)
       .pipe(
         catchError(err => {
-            let error: ValidationError = err.error;
+            const error: ValidationError = err.error;
             let validationMessage = '';
             error.fieldErrors.forEach(x => validationMessage += x.message);
             this.alertService.error(validationMessage);

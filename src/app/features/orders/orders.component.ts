@@ -24,15 +24,11 @@ export class OrdersComponent implements OnInit {
   orders: OrderDTO[];
   dataSource;
   displayedColumns = ['restaurantName', 'endDatetime', 'author', 'details'];
-  selectedOrder: OrderDTO;
 
   constructor(private router: Router,
               private orderService: OrderService,
               private dialog: MatDialog,
               private authService: AuthService) {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigateByUrl('/login');
-    }
   }
 
   ngOnInit() {
