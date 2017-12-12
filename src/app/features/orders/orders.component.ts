@@ -10,7 +10,8 @@ import {CreateOrderComponent} from './create-order/create-order.component';
 import * as moment from 'moment';
 import {EditOrderComponent} from './edit-order/edit-order.component';
 import {AuthService} from '../../commons/AuthService';
-
+import {DeleteOrderComponent} from './delete-order/delete-order.component';
+import {AlertService} from '../../commons/alert/alert.service';
 
 @Component({
   selector: 'app-orders',
@@ -24,11 +25,13 @@ export class OrdersComponent implements OnInit {
   orders: OrderDTO[];
   dataSource;
   displayedColumns = ['restaurantName', 'endDatetime', 'author', 'details'];
+  deleteInProgress = false;
 
   constructor(private router: Router,
               private orderService: OrderService,
               private dialog: MatDialog,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -75,6 +78,38 @@ export class OrdersComponent implements OnInit {
 
   canEditOrderDef(element: OrderDTO): boolean {
     return element.author.id === this.authService.getUser().id;
+  }
+
+  deleteOrder(order: OrderDTO) {
+    const dialogRef = this.dialog.open(DeleteOrderComponent, {
+      minWidth: '30vw',
+      data: {order: order}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.deleteInProgress = true;
+        if (result != null) {
+          this.orderService.deleteOrder(order)
+            .subscribe(
+              () => {
+                this.orders = this.orders.filter(x => x.id !== order.id);
+                this.dataSource = new OrderListDataSource(this.orders);
+                this.alertService.success('Order deleted.');
+                this.deleteInProgress = false;
+              },
+              error2 => {
+                this.alertService.error('Someone ordedred something or time for ordering is out. You cannot delete this order.');
+                this.deleteInProgress = false;
+              });
+        } else {
+          this.alertService.error('Something went wrong. Please contact with administrator system.');
+          this.deleteInProgress = false;
+        }
+      });
+  }
+
+  canOrderBeDeleted(order: OrderDTO): boolean {
+    return !(order.orderLineNumberList.length > 0);
   }
 }
 

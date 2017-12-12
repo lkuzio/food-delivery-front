@@ -4,8 +4,8 @@
 
 <div *ngIf="orders.length>0">
   <div class="example-container mat-elevation-z8">
+    <mat-spinner class="deleteOrder-spinner" *ngIf="deleteInProgress"></mat-spinner>
     <mat-table #table [dataSource]="dataSource">
-
       <ng-container matColumnDef="restaurantName">
         <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.restaurantName}}</mat-cell>
@@ -28,6 +28,7 @@
             <button mat-button>More</button>
           </a>
           <button mat-button (click)="editOrder(element)" [disabled]="!canEditOrderDef(element)">Edit</button>
+          <button mat-button (click)="deleteOrder(element)" [disabled]="!canOrderBeDeleted(element)">Delete</button>
         </mat-cell>
       </ng-container>
 

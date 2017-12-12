@@ -16,6 +16,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
+  MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatTableModule
@@ -24,6 +25,7 @@ import {MomentModule} from 'angular2-moment';
 import {EditOrderItemComponent} from './edit-order-item/edit-order-item.component';
 import {EditOrderComponent} from './edit-order/edit-order.component';
 import { OrderTheSameItemComponent } from './order-the-same-item/order-the-same-item.component';
+import { DeleteOrderComponent } from './delete-order/delete-order.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import { OrderTheSameItemComponent } from './order-the-same-item/order-the-same-
     MatCardModule,
     MatCheckboxModule,
     MomentModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     OrdersComponent,
@@ -50,7 +53,8 @@ import { OrderTheSameItemComponent } from './order-the-same-item/order-the-same-
     DeleteOrderItemComponent,
     EditOrderItemComponent,
     EditOrderComponent,
-    OrderTheSameItemComponent
+    OrderTheSameItemComponent,
+    DeleteOrderComponent
   ],
   providers: [
     OrderService

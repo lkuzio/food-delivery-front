@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import {AlertService} from '../../commons/alert/alert.service';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
 import {OrderDTO} from '../../dto/OrderDTO';
 import {GenericResponse} from '../../dto/GenericResponse';
 import {OrderLine} from '../../dto/OrderLine';
@@ -11,7 +13,6 @@ import {DataSource} from '@angular/cdk/collections';
 import {ValidationError} from '../../dto/ValidationError';
 import {UpdateOrderLine} from '../../dto/UpdateOrderLine';
 import {Router} from '@angular/router';
-
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -81,7 +82,7 @@ export class OrderService {
         ));
   }
 
-  delete(item: OrderLine) {
+  deleteOrderLineItem(item: OrderLine) {
     this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id).subscribe(() => {
       },
       err => {
@@ -135,6 +136,10 @@ export class OrderService {
             return Observable.throw(err);
           }
         ));
+  }
+
+  deleteOrder(order: OrderDTO) {
+    return this.http.delete(this.URL + '/' + order.id, { responseType: 'text' });
   }
 
   get total(): number {
