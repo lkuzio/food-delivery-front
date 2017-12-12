@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import {AlertService} from '../../commons/alert/alert.service';
 import {Observable} from 'rxjs/Observable';
 import {OrderDTO} from '../../dto/OrderDTO';
@@ -9,7 +12,6 @@ import {OrderLine} from '../../dto/OrderLine';
 import {DataSource} from '@angular/cdk/collections';
 import {ValidationError} from '../../dto/ValidationError';
 import {UpdateOrderLine} from '../../dto/UpdateOrderLine';
-
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -43,7 +45,7 @@ export class OrderService {
   }
 
   getOrderById(offerId: string): Observable<OrderDTO> {
-    let url = this.URL + '/' + offerId;
+    const url = this.URL + '/' + offerId;
     return this.http.get(url).pipe(
       catchError(err => {
           return Observable.throw(err);
@@ -61,11 +63,11 @@ export class OrderService {
   }
 
   createOrderItem(orderLine: OrderLine) {
-    let url = this.URL + '/' + orderLine.order.id + '/lineItem';
+    const url = this.URL + '/' + orderLine.order.id + '/lineItem';
     return this.http.post(url, orderLine)
       .pipe(
         catchError(err => {
-            let error: ValidationError = err.error;
+            const error: ValidationError = err.error;
             let validationMessage = '';
             error.fieldErrors.forEach(x => validationMessage += x.message);
             this.alertService.error(validationMessage);
@@ -74,7 +76,7 @@ export class OrderService {
         ));
   }
 
-  delete(item: OrderLine) {
+  deleteOrderLineItem(item: OrderLine) {
     this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id).subscribe(() => {
       },
       err => {
@@ -128,6 +130,10 @@ export class OrderService {
             return Observable.throw(err);
           }
         ));
+  }
+
+  deleteOrder(order: OrderDTO) {
+    return this.http.delete(this.URL + '/' + order.id, { responseType: 'text' });
   }
 
   get total(): number {

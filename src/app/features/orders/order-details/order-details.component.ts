@@ -96,7 +96,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.orderService.delete(result);
+        this.orderService.deleteOrderLineItem(result);
         this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
         this.dataSource = this.orderService.OrderDetailsDataSource;
         this.calculateTotal();
