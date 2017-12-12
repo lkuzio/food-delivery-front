@@ -44,6 +44,7 @@ import {EditOrderComponent} from './features/orders/edit-order/edit-order.compon
 import { EditProfileComponent } from './features/profile/edit-profile/edit-profile.component';
 import {ProfileService} from './features/profile/ProfileService';
 import {OrderTheSameItemComponent} from './features/orders/order-the-same-item/order-the-same-item.component';
+import {DeleteOrderComponent} from './features/orders/delete-order/delete-order.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import {OrderTheSameItemComponent} from './features/orders/order-the-same-item/o
       useClass: ErrorInterceptor,
       multi: true
     }],
-  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent, OrderTheSameItemComponent],
+  entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent,
+    OrderTheSameItemComponent, DeleteOrderItemComponent, DeleteOrderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
