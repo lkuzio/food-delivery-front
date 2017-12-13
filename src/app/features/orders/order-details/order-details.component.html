@@ -3,6 +3,7 @@
   <mat-card class="orderDetails">
     <h2>{{order.restaurantName}}</h2>
     <p>Order author: <b>{{order.author.name}}</b></p>
+    <p>Order menu URL: <b><a href="//{{order.url}}" target="_blank">{{order.url}}</a></b></p>
     <pre>{{order.description}}</pre>
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
