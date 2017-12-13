@@ -6,13 +6,13 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatIconModule,
   MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatTableModule,
-  MatIconModule
+  MatTableModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -41,10 +41,11 @@ import {DeleteOrderItemComponent} from './features/orders/delete-order-item/dele
 import {OrdersModule} from './features/orders/orders.module';
 import {EditOrderItemComponent} from './features/orders/edit-order-item/edit-order-item.component';
 import {EditOrderComponent} from './features/orders/edit-order/edit-order.component';
-import { EditProfileComponent } from './features/profile/edit-profile/edit-profile.component';
+import {EditProfileComponent} from './features/profile/edit-profile/edit-profile.component';
 import {ProfileService} from './features/profile/ProfileService';
 import {OrderTheSameItemComponent} from './features/orders/order-the-same-item/order-the-same-item.component';
 import {DeleteOrderComponent} from './features/orders/delete-order/delete-order.component';
+import {ProfileRoutingModule} from './features/profile/profile-routing.module';
 
 @NgModule({
   declarations: [
@@ -73,8 +74,10 @@ import {DeleteOrderComponent} from './features/orders/delete-order/delete-order.
     FlexLayoutModule,
     HttpClientModule,
     MomentModule,
-    OrdersRoutingModule,
     OrdersModule,
+
+    OrdersRoutingModule,
+    ProfileRoutingModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -89,12 +92,16 @@ import {DeleteOrderComponent} from './features/orders/delete-order/delete-order.
         component: LoginComponent
       },
       {
+        path: 'login/:returnUrl',
+        component: LoginComponent
+      },
+      {
         path: 'registration',
         component: RegistrationComponent
       },
       {
-        path: 'profile/edit',
-        component: EditProfileComponent
+        path: '**',
+        component: OrdersComponent
       }
     ])
   ],

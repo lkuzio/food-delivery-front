@@ -12,6 +12,7 @@ import {OrderLine} from '../../dto/OrderLine';
 import {DataSource} from '@angular/cdk/collections';
 import {ValidationError} from '../../dto/ValidationError';
 import {UpdateOrderLine} from '../../dto/UpdateOrderLine';
+import {Router} from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -25,7 +26,8 @@ export class OrderService {
   orderListDataSource: OrderListDataSource;
 
   constructor(private http: HttpClient,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private route: Router) {
   }
 
   private URL = 'orders';
@@ -48,7 +50,11 @@ export class OrderService {
     const url = this.URL + '/' + offerId;
     return this.http.get(url).pipe(
       catchError(err => {
-          return Observable.throw(err);
+          if (err.status === 404) {
+            this.route.navigateByUrl('/orders');
+          } else {
+            return Observable.throw(err);
+          }
         }
       ));
   }
