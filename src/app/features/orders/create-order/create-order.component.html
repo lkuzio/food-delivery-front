@@ -6,6 +6,10 @@
              name="restaurantName">
     </mat-form-field>
     <mat-form-field>
+      <input matInput type="url" maxlength="65536" placeholder="Link to menu" [(ngModel)]="createOrder.url" id="url"
+             name="url">
+    </mat-form-field>
+    <mat-form-field>
       <textarea matInput placeholder="Description" [(ngModel)]="createOrder.description" id="description"
                 name="description" rows="5"></textarea>
     </mat-form-field>
@@ -18,6 +22,4 @@
 <mat-dialog-actions>
   <button mat-raised-button [disabled]="!createOrderForm.form.valid" (click)="onCreateOrder()">Create</button>
   <button mat-raised-button color="primary" mat-dialog-close>Close</button>
-
-
 </mat-dialog-actions>

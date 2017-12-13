@@ -12,7 +12,7 @@
       <mat-checkbox checked="stayLoggedIn" [checked]="false" (change)="stayLoggedIn = !stayLoggedIn">Stay logged in!</mat-checkbox>
       <br/>
       <button mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
-      <mat-spinner *ngIf="loginInProgress"></mat-spinner>
+      <mat-spinner class="center-spinner" *ngIf="loginInProgress"></mat-spinner>
     </form>
   </mat-card>
 </div>

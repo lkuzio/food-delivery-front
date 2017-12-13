@@ -6,6 +6,10 @@
              name="restaurantName">
     </mat-form-field>
     <mat-form-field>
+      <input matInput type="url" maxlength="65536" placeholder="Link to menu" [(ngModel)]="editedOrder.url" id="url"
+             name="url">
+    </mat-form-field>
+    <mat-form-field>
       <textarea matInput placeholder="Description" [(ngModel)]="editedOrder.description" id="description"
                 name="description" rows="5"></textarea>
     </mat-form-field>
