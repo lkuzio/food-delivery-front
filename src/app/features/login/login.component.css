@@ -3,3 +3,7 @@
   max-width: 600px;
   width: 100%;
 }
+
+.center-spinner {
+  margin: 0 auto;
+}
