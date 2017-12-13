@@ -112,6 +112,10 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     return element.purchaser.id === this.authService.getUser().id || this.order.author.id === this.authService.getUser().id;
   }
 
+  isOrderAuthor(order: OrderDTO): boolean {
+    return order.author.id === this.authService.getUser().id;
+  }
+
   shouldBeVisible() {
     return this.order.orderLineNumberList.length > 0;
   }
@@ -119,6 +123,11 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   canEdit(element: OrderLine): boolean {
     return element.purchaser.id === this.authService.getUser().id || this.order.author.id === this.authService.getUser().id;
   }
+
+  canBeOrderedAgain(order: OrderDTO): boolean {
+    return this.isActive(order) || order.author.id === this.authService.getUser().id;
+  }
+
 
   edit(element: OrderLine) {
     element.order = this.order;

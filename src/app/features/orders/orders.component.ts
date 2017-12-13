@@ -102,14 +102,13 @@ export class OrdersComponent implements OnInit {
                 this.deleteInProgress = false;
               });
         } else {
-          this.alertService.error('Something went wrong. Please contact with administrator system.');
           this.deleteInProgress = false;
         }
       });
   }
 
   canOrderBeDeleted(order: OrderDTO): boolean {
-    return !(order.orderLineNumberList.length > 0);
+    return !(order.orderLineNumberList.length > 0) && order.author.id === this.authService.getUser().id;
   }
 }
 
