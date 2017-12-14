@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -83,10 +83,7 @@ export class OrderService {
   }
 
   deleteOrderLineItem(item: OrderLine) {
-    this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id).subscribe(() => {
-      },
-      err => {
-      });
+    return this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id);
   }
 
   updateOrderLine(item: UpdateOrderLine): Observable<OrderLine> {

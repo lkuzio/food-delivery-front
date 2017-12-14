@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {OrderService} from "../OrderService";
-import {UpdateOrderLine} from "../../../dto/UpdateOrderLine";
-import {OrderLine} from "../../../dto/OrderLine";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {OrderService} from '../OrderService';
+import {UpdateOrderLine} from '../../../dto/UpdateOrderLine';
+import {OrderLine} from '../../../dto/OrderLine';
 
 @Component({
   selector: 'app-delete-order-item',
@@ -21,7 +21,7 @@ export class EditOrderItemComponent implements OnInit {
   constructor(public dialog: MatDialogRef<EditOrderItemComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private orderService: OrderService) {
-    this.item = data.lineItem;
+    this.item = Object.assign({}, data.lineItem);
     this.lineItem.order = data.lineItem.order.id;
     this.lineItem.price = data.lineItem.price;
     this.lineItem.dishName = data.lineItem.dishName;
@@ -46,9 +46,12 @@ export class EditOrderItemComponent implements OnInit {
     this.orderService.updateOrderLine(this.lineItem)
       .subscribe(
         response => {
+          this.data.lineItem.dishName = this.item.dishName;
+          this.data.lineItem.price = this.item.price;
           this.item = response;
         },
         error2 => {
+          this.onNoClick();
           console.log(error2);
         }
       );
