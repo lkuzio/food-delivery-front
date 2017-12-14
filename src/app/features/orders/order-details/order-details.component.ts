@@ -24,7 +24,6 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   order: OrderDTO;
   displayedColumns = ['dishName', 'price', 'purchaser', 'paid', 'actions'];
   dataSource: OrderListDataSource;
-  orderUrl: string;
   totalValue: number = this.orderService.total;
 
   constructor(private route: ActivatedRoute,
@@ -50,7 +49,6 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     let offerId;
-    this.orderUrl = this.router.url;
     this.route.paramMap.subscribe(param => {
       offerId = param.get('id');
     });
@@ -60,6 +58,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     if (offerId != null) {
       this.orderService.getOrderById(offerId).subscribe(response => {
         this.order = response;
+        this.correctUrl(this.order);
         this.orderService.setSelectedOrder(this.order);
         this.dataSource = this.orderService.OrderDetailsDataSource;
         this.calculateTotal();
@@ -67,7 +66,12 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     } else {
       this.router.navigateByUrl('/orders');
     }
+  }
 
+  correctUrl(order: OrderDTO) {
+    if (!order.url.startsWith('http')) {
+      this.order.url = 'http://' + order.url;
+    }
   }
 
 
