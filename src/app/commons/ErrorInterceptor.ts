@@ -29,7 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         };
         this.router.navigate(['/login'], navigationExtras);
-        location.reload();
       }
     });
   }
