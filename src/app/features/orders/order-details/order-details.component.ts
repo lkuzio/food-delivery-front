@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 import {EditOrderItemComponent} from '../edit-order-item/edit-order-item.component';
 import {UpdateOrderLine} from '../../../dto/UpdateOrderLine';
 import {OrderTheSameItemComponent} from '../order-the-same-item/order-the-same-item.component';
+import {AlertService} from '../../../commons/alert/alert.service';
 
 @Component({
   selector: 'app-order-details',
@@ -30,7 +31,8 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
               private router: Router,
               private orderService: OrderService,
               private authService: AuthService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private alertService: AlertService) {
     if (this.orderLine !== undefined) {
       setInterval(() => {
         this.dataSource = this.orderService.OrderDetailsDataSource;
@@ -100,16 +102,27 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.orderService.deleteOrderLineItem(result);
-        this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
-        this.dataSource = this.orderService.OrderDetailsDataSource;
-        this.calculateTotal();
+        this.orderService.deleteOrderLineItem(result)
+          .subscribe(
+            () => {
+              this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
+              this.dataSource = this.orderService.OrderDetailsDataSource;
+              this.calculateTotal();
+            },
+            error2 => {
+              this.alertService.error('You cannot delete this order!');
+            }
+          );
       }
     });
   }
 
   canDelete(element: OrderLine): boolean {
     return element.purchaser.id === this.authService.getUser().id || this.order.author.id === this.authService.getUser().id;
+  }
+
+  isOrderAuthor(order: OrderDTO): boolean {
+    return order.author.id === this.authService.getUser().id;
   }
 
   shouldBeVisible() {
@@ -119,6 +132,11 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   canEdit(element: OrderLine): boolean {
     return element.purchaser.id === this.authService.getUser().id || this.order.author.id === this.authService.getUser().id;
   }
+
+  canBeOrderedAgain(order: OrderDTO): boolean {
+    return this.isActive(order) || order.author.id === this.authService.getUser().id;
+  }
+
 
   edit(element: OrderLine) {
     element.order = this.order;

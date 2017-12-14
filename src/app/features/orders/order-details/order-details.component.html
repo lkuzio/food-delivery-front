@@ -8,7 +8,7 @@
     <p>Deadline: <b>{{order.endDatetime | amDateFormat:' HH:mm '}}</b></p>
     <p>Total value: <b>{{totalValue.toFixed(2)}}</b>zł</p>
 
-    <mat-card-content *ngIf="isActive(order)">
+    <mat-card-content *ngIf="isActive(order) || isOrderAuthor(order)">
       <form class="createOrderLineForm" (ngSubmit)="onCreateOrderLine()" #createOrderLineForm="ngForm" id="createOrderLineForm" fxLayout="column">
         <mat-form-field>
 
@@ -60,13 +60,13 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button (click)="edit(element)" [disabled]="!canEdit(element)">
+          <button mat-button (click)="edit(element)" [disabled]="!canEdit(element) || !isActive(order)">
             Edit
           </button>
-          <button mat-button (click)="delete(element)" [disabled]="!canDelete(element)">
+          <button mat-button (click)="delete(element)" [disabled]="!canDelete(element) || !isActive(order)">
             Delete
           </button>
-          <button mat-button (click)="orderTheSame(element)" title="Order the same dish">
+          <button mat-button (click)="orderTheSame(element)" [disabled]="!canBeOrderedAgain(order)" title="Order the same dish">
             <i class="material-icons">add_shopping_cart</i>
           </button>
         </mat-cell>
