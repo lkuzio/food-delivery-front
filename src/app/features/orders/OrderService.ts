@@ -83,7 +83,7 @@ export class OrderService {
   }
 
   deleteOrderLineItem(item: OrderLine) {
-    return this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id);
+    return this.http.delete(this.URL + '/' + item.order.id + '/lineItem/' + item.id, { responseType: 'text' });
   }
 
   updateOrderLine(item: UpdateOrderLine): Observable<OrderLine> {

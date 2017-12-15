@@ -111,9 +111,11 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
             () => {
               this.order.orderLineNumberList = this.order.orderLineNumberList.filter(x => x !== result);
               this.dataSource = this.orderService.OrderDetailsDataSource;
+              this.alertService.success('Order deleted successfully!');
               this.calculateTotal();
             },
             error2 => {
+              console.log(error2);
               this.alertService.error('You cannot delete this order!');
             }
           );
