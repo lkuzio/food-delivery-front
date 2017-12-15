@@ -26,6 +26,7 @@ import {EditOrderItemComponent} from './edit-order-item/edit-order-item.componen
 import {EditOrderComponent} from './edit-order/edit-order.component';
 import { OrderTheSameItemComponent } from './order-the-same-item/order-the-same-item.component';
 import { DeleteOrderComponent } from './delete-order/delete-order.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { DeleteOrderComponent } from './delete-order/delete-order.component';
     EditOrderItemComponent,
     EditOrderComponent,
     OrderTheSameItemComponent,
-    DeleteOrderComponent
+    DeleteOrderComponent,
+    OrderSummaryComponent
   ],
   providers: [
     OrderService

@@ -11,6 +11,7 @@ import {EditOrderItemComponent} from '../edit-order-item/edit-order-item.compone
 import {UpdateOrderLine} from '../../../dto/UpdateOrderLine';
 import {OrderTheSameItemComponent} from '../order-the-same-item/order-the-same-item.component';
 import {AlertService} from '../../../commons/alert/alert.service';
+import {OrderSummaryComponent} from '../order-summary/order-summary.component';
 
 @Component({
   selector: 'app-order-details',
@@ -20,7 +21,7 @@ import {AlertService} from '../../../commons/alert/alert.service';
 })
 export class OrderDetailsComponent implements OnInit, OnChanges {
   orderLine: OrderLine;
-
+  offerId;
   order: OrderDTO;
   displayedColumns = ['dishName', 'price', 'purchaser', 'paid', 'actions'];
   dataSource: OrderListDataSource;
@@ -48,15 +49,14 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    let offerId;
     this.route.paramMap.subscribe(param => {
-      offerId = param.get('id');
+      this.offerId = param.get('id');
     });
     this.orderLine = new OrderLine();
     this.orderLine.paid = false;
 
-    if (offerId != null) {
-      this.orderService.getOrderById(offerId).subscribe(response => {
+    if (this.offerId != null) {
+      this.orderService.getOrderById(this.offerId).subscribe(response => {
         this.order = response;
         this.correctUrl(this.order);
         this.orderService.setSelectedOrder(this.order);
@@ -69,7 +69,7 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
   }
 
   correctUrl(order: OrderDTO) {
-    if (!order.url.startsWith('http')) {
+    if (order.url != null && !order.url.startsWith('http')) {
       this.order.url = 'http://' + order.url;
     }
   }
@@ -201,5 +201,32 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
           );
       }
     });
+  }
+
+  getOrderSummary() {
+    this.orderService.getOrderById(this.offerId)
+      .subscribe(response => {
+        const orderLines = response.orderLineNumberList;
+
+        const groupedOrderLines = orderLines.reduce(function (obj, item) {
+          obj[item.dishName] = obj[item.dishName] || [];
+          obj[item.dishName].push(item.price);
+          return obj;
+        }, {});
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        const groups = Object.keys(groupedOrderLines).map(function (key) {
+          return {
+            orderLineName: key,
+            priceSum: groupedOrderLines[key].reduce(reducer, 0),
+            itemsNumber: groupedOrderLines[key].length
+          };
+
+        });
+
+        this.dialog.open(OrderSummaryComponent, {
+          minWidth: '30vw',
+          data: {orderSummary: groups}
+        });
+      });
   }
 }
