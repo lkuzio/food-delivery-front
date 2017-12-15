@@ -46,6 +46,7 @@ import {ProfileService} from './features/profile/ProfileService';
 import {OrderTheSameItemComponent} from './features/orders/order-the-same-item/order-the-same-item.component';
 import {DeleteOrderComponent} from './features/orders/delete-order/delete-order.component';
 import {ProfileRoutingModule} from './features/profile/profile-routing.module';
+import {OrderSummaryComponent} from './features/orders/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,7 @@ import {ProfileRoutingModule} from './features/profile/profile-routing.module';
       multi: true
     }],
   entryComponents: [CreateOrderComponent, CreateOrderItemComponent, DeleteOrderItemComponent, EditOrderItemComponent, EditOrderComponent,
-    OrderTheSameItemComponent, DeleteOrderItemComponent, DeleteOrderComponent],
+    OrderTheSameItemComponent, DeleteOrderItemComponent, DeleteOrderComponent, OrderSummaryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

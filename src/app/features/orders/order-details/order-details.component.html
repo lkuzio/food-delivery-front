@@ -24,6 +24,7 @@
       </form>
 
       <button mat-raised-button [disabled]="!createOrderLineForm.form.valid" (click)="onCreateOrderLine()">Order</button>
+      <button mat-raised-button (click)="getOrderSummary()">Order Summary</button>
     </mat-card-content>
     <h2 *ngIf="!isActive(order)">Time is out</h2>
   </mat-card>
